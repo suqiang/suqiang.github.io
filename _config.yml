@@ -7,7 +7,7 @@ title: Grimes's Blog
 subtitle: 个人技术成长之路
 description: 记录所思、所想。分享所思、所想
 author: Grimes
-language:
+language: zh-Hans
 timezone:
 
 # URL
@@ -68,6 +68,7 @@ Plugins:
 
 sitemap:
   path: sitemap.xml
+
 
 theme: yelee
 
