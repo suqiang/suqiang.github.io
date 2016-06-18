@@ -298,7 +298,71 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="Hexo备忘"><a href="#Hexo备忘" class="headerlink" title="Hexo备忘"></a>Hexo备忘</h2><h3 id="写文章"><a href="#写文章" class="headerlink" title="写文章"></a>写文章</h3><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><h3 id="高级"><a href="#高级" class="headerlink" title="高级"></a>高级</h3><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3>
+        <h2 id="Hexo备忘"><a href="#Hexo备忘" class="headerlink" title="Hexo备忘"></a>Hexo备忘</h2><h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>参数</th>
+<th>说明   </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hexo init [folder]</td>
+<td>folder: 博客所在文件夹</td>
+<td>初始化博客文件  </td>
+</tr>
+<tr>
+<td>hexo new [layout] <code>&lt;title&gt;</code></td>
+<td>layout: 模板名称 <br> title:文件名称</td>
+<td>在 <code>scaffolds</code> 文件夹内，默认layout为 <code>post</code></td>
+</tr>
+<tr>
+<td>hexo generate [-d] [-w]</td>
+<td>-d: deploy <br> -w:watch</td>
+<td>生成并部署，位置可调换</td>
+</tr>
+<tr>
+<td>hexo publish [layout] <code>&lt;filename&gt;</code></td>
+<td>layout: <br> filename:文件名称</td>
+<td>发布指定草稿里的文件</td>
+</tr>
+<tr>
+<td>hexo server</td>
+<td>-p:指定端口 <br> -s:只启动静态文件 <br> -l:日志</td>
+<td>启动服务<br> 默认地址：<a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a></td>
+</tr>
+<tr>
+<td>hexo deploy</td>
+<td></td>
+<td>部署</td>
+</tr>
+<tr>
+<td>hexo clean</td>
+<td></td>
+<td>有问题，先清理 <br> 生成部署之前，先清理一下，错误莫名消失</td>
+</tr>
+</tbody>
+</table>
+<h3 id="标签表现"><a href="#标签表现" class="headerlink" title="标签表现"></a>标签表现</h3><p>格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% blockquote [author[, source]] [link] [source_link_title] %&#125;</span><br><span class="line">  content</span><br><span class="line">&#123;% endblockquote %&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h4><p><strong><em>简单</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% blockquote %&#125;</span><br><span class="line">吾十有五而志于学，三十而立，四十而不惑，五十而知天命，六十而耳顺，七十而从心所欲不逾矩</span><br><span class="line">&#123;% endblockquote %&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote><p>吾十有五而志于学，三十而立，四十而不惑，五十而知天命，六十而耳顺，七十而从心所欲不逾矩</p>
+</blockquote>
+<p><strong><em>来源</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% blockquote  孔子,论语 %&#125;</span><br><span class="line">吾十有五而志于学，三十而立，四十而不惑，五十而知天命，六十而耳顺，七十而从心所欲不逾矩</span><br><span class="line">&#123;% endblockquote %&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote><p>吾十有五而志于学，三十而立，四十而不惑，五十而知天命，六十而耳顺，七十而从心所欲不逾矩</p>
+<footer><strong>孔子</strong><cite>论语</cite></footer></blockquote>
+<p><strong><em>链接</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% blockquote  孔子,论语 http://suqiang.github.io/ %&#125;</span><br><span class="line">吾十有五而志于学，三十而立，四十而不惑，五十而知天命，六十而耳顺，七十而从心所欲不逾矩</span><br><span class="line">&#123;% endblockquote %&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote><p>吾十有五而志于学，三十而立，四十而不惑，五十而知天命，六十而耳顺，七十而从心所欲不逾矩</p>
+<footer><strong>孔子,论语</strong><cite><a href="http://suqiang.github.io/">suqiang.github.io</a></cite></footer></blockquote>
+<p><strong><em>markdown_code</em></strong><br><figure class="highlight"><figcaption><span>数据库数据(json)</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">"data":&#123;</span><br><span class="line">  "name":"Grimes",</span><br><span class="line">  "blog":"http://suqiang.github.io/",</span><br><span class="line">  "age":25</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight objc"><figcaption><span>初始化方法(objc)</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (instancetype)initWithFrame:(<span class="built_in">CGRect</span>)frame</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">self</span> = [<span class="keyword">super</span> initWithFrame:frame];</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>其他详细</em></strong><br>链接：<a href="https://hexo.io/docs/tag-plugins.html" target="_blank" rel="external">其他</a></p>
+<h3 id="资源文件"><a href="#资源文件" class="headerlink" title="资源文件"></a>资源文件</h3><ul>
+<li>可以在文件夹<code>source</code>创建自公有的资源文件夹，例如images；</li>
+<li>也可以在配置文件<code>_config.yml</code>里将<code>post_asset_folder</code>打开，设置为true(默认为false)，此时，在新建文章时，会自动生成和文章文件名称一致的文件夹，用来存放文章对应的资源。注意此时不能用markdown语法引用资源，而是用hexo自有的标签</li>
+<li><a href="https://hexo.io/docs/asset-folders.html" target="_blank" rel="external">详情</a></li>
+</ul>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><h3 id="高级"><a href="#高级" class="headerlink" title="高级"></a>高级</h3><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3>
       
     </div>
     
