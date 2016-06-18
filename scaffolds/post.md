@@ -5,5 +5,5 @@ updated: {{date}}
 comments: true
 categories:
 tags:
-permalink: 
+permalink:
 ---
