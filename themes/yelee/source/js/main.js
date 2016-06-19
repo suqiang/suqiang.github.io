@@ -161,6 +161,7 @@ require([], function (){
     var id = Math.ceil(Math.random()*(colorList.length-1));
     //PC
     //$("#container .left-col .overlay").css({"background-color": colorList[id],"opacity": .0});
+    $("#container .left-col .overlay").hide();
 
     // $("#container .left-col .overlay").css("background-image","url(/img/bg_overlay.jpg)");
     //$("#container .left-col").css("background-image","url(/img/background.jpg)");
