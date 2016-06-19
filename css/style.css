@@ -247,7 +247,7 @@ a {
   height: 180px;
   background-color: #000;
   position: absolute;
-  opacity: 0.7;
+  opacity: 0;
 }
 #container .left-col .intrude-less {
   width: 76%;
