@@ -1,12 +1,14 @@
 ---
+layout: _draft
 title: Cocoapods 私有库 oschina
 comments: true
 date: 2016-07-06 08:46:21
 updated: 2016-07-06 08:46:21
-categories:
 tags:
+categories:
 permalink:
 ---
+
 
 
 ## Cocoapods创建本地私有库依赖
