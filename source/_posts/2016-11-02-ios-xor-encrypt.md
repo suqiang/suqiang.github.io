@@ -78,6 +78,27 @@ static NSString const *privateKey = @"ef37c9111210854f5986fc9ebb5548b2ae";
 @end
 ```
 
+
+### 思考题
+
+```objc
+int a = 15;
+int b = 20;
+```
+不用第三个变量，交换两个变量的值？
+
+* 答案(面试装13用)
+
+```objc
+int a = 15;
+int b = 20;
+
+a = a ^ b;
+b = a ^ b;
+a = a ^ b;
+
+```
+
 ---
 
 ## 源码
