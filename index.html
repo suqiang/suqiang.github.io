@@ -193,7 +193,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac-Git-SSH/">Mac Git SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS-tableView-评论回复/">iOS tableView 评论回复</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac-Git-SSH/">Mac Git SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS-tableView-评论回复/">iOS tableView 评论回复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS-加密-XOR/">iOS 加密 XOR</a></li></ul>
                     </div>
                 </section>
                 
@@ -273,6 +273,103 @@
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-ios-xor-encrypt" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/11/02/ios-xor-encrypt/" class="article-date">
+      <time datetime="2016-11-02T06:19:50.000Z" itemprop="datePublished">2016-11-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/02/ios-xor-encrypt/">iOS异或(XOR)加密</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>源码见文末</p>
+<h2 id="异或简介"><a href="#异或简介" class="headerlink" title="异或简介"></a>异或简介</h2><ul>
+<li><code>异或</code>，二元运算;</li>
+<li>符号<code>^</code>;</li>
+<li>口诀：相同为0,不相同为1;  </li>
+<li>举例<ul>
+<li>10011101^10001010=00010111</li>
+</ul>
+</li>
+</ul>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><ul>
+<li>密码加密(此场景在日常开发中使用较多,本文将着重介绍此应用场景)</li>
+<li>数据暂存</li>
+<li>嵌入式</li>
+</ul>
+<h2 id="异或加密原理"><a href="#异或加密原理" class="headerlink" title="异或加密原理"></a><code>异或加密</code>原理</h2><ul>
+<li>假设明文A, 密钥B, 密文C,</li>
+<li>通过<code>异或加密</code>过程为A ^ B = C, 得到密文C</li>
+<li>如果此时知道密文A和密钥B,那么通过<code>异或解密</code>过程为C ^ B = A, 重新得到明文A</li>
+<li><img src="http://o7obltx2h.bkt.clouddn.com/imagexor.png" alt="异或加密"></li>
+</ul>
+<h2 id="异或加密应用"><a href="#异或加密应用" class="headerlink" title="异或加密应用"></a><code>异或加密</code>应用</h2><ul>
+<li>企业由于数据具有保密性,需要对敏感数据进行加密。 数据存在的形式可能是客户端的缓存、内置资源文件、网络传输等，这些数据都有可能被用户，竞争对手，黑客截获的潜在风险；通过加密可以进行规避，异或加密是其中较为简单的一种实现方案。</li>
+<li>例如某公司App要内置一些核心资源配置文件，为防止用户窥探，采用了加密处理，先将方案分享如下：<ul>
+<li>后端生成配置文件时，用私钥对数据进行与运算处理，生成密文；客户端拿到密文，通过自动或手动打包的app中，app在运行时，采用相同的密钥、按照相同的算法进行异或运算，得到明文，进而使用。</li>
+<li>异或算法<ul>
+<li>假设 私钥<code>abcdefg</code>7位，将数据转换为<code>data</code>类型，获取所有字节；将字节每七位分别于私钥七位字符异或运算，一直循环到最后得到密文</li>
+<li>异或解密算法和加密算法一致，即通过这个算法运行一次是加密，再通过这个算法运行一次就是解密</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="iOS代码实现"><a href="#iOS代码实现" class="headerlink" title="iOS代码实现"></a>iOS代码实现</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 客户端内置私钥</span></span><br><span class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> <span class="keyword">const</span> *privateKey = <span class="string">@"ef37c9111210854f5986fc9ebb5548b2ae"</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NSData</span>(<span class="title">XOREncrypt</span>)</span></span><br><span class="line">- (<span class="built_in">NSData</span> *)xor_decrypt</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> xor_encrypt];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 加密</span></span><br><span class="line">- (<span class="built_in">NSData</span> *)xor_encrypt</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 获取key的长度</span></span><br><span class="line">    <span class="built_in">NSInteger</span> length = privateKey.length;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将OC字符串转换为C字符串</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *keys = [privateKey cStringUsingEncoding:<span class="built_in">NSASCIIStringEncoding</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> cKey[length];</span><br><span class="line"></span><br><span class="line">    memcpy(cKey, keys, length);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 数据初始化，空间未分配 配合使用 appendBytes</span></span><br><span class="line">    <span class="built_in">NSMutableData</span> *encryptData = [[<span class="built_in">NSMutableData</span> alloc] initWithCapacity:length];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取字节指针</span></span><br><span class="line">    <span class="keyword">const</span> Byte *point = <span class="keyword">self</span>.bytes;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">self</span>.length; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> l = i % length;                     <span class="comment">// 算出当前位置字节，要和密钥的异或运算的密钥字节</span></span><br><span class="line">        <span class="keyword">char</span> c = cKey[l];</span><br><span class="line">        Byte b = (Byte) ((point[i]) ^ c);       <span class="comment">// 异或运算</span></span><br><span class="line">        [encryptData appendBytes:&amp;b length:<span class="number">1</span>];  <span class="comment">// 追加字节</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> encryptData.copy;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><p><a href="https://github.com/suqiang/iOSDemo/blob/master/iOSDemo/Classes/Category/Encrypt/XOR/SQHXOREncryptUtil.m" target="_blank" rel="external">XORDemo源码</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/iOS-加密/">iOS 加密</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS-加密-XOR/">iOS 加密 XOR</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-ios-tableview-weixin-comment-md" class="article article-type-post" itemscope itemprop="blogPost">
   

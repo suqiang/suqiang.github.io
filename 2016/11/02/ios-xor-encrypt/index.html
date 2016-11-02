@@ -15,79 +15,72 @@
 
 
 
-<meta name="description" content="Hexo备忘命令
+<meta name="description" content="源码见文末
+异或简介
+异或，二元运算;
+符号^;
+口诀：相同为0,不相同为1;  
+举例
+10011101^10001010=00010111
 
 
-命令
-参数
-说明   
 
+应用场景
+密码加密(此场景在日常开发中使用较多,本文将着重介绍此应用场景)
+数据暂存
+嵌入式
 
-
-
-hexo init [folder]
-folder: 博客所在文件夹
-初始化博客文件  
-
-
-hexo new [layout] &amp;lt;title&amp;gt;
-layout: 模板名称  title:文件名称
-在 scaffolds 文件夹内，默认layout为 post
-
-
-hexo generate [-d] [-w]
--d: deploy">
+异或加密原理
+假设明文A, 密钥B, 密文C,
+通过异或加密过程为A ^ B = C, 得到密文C
+如果此时知道密文A和密钥B,那么通过异或解密过程为C">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo 简单配置">
-<meta property="og:url" content="http://suqianghotel.com/2016/06/17/hexo笔记/index.html">
+<meta property="og:title" content="iOS异或(XOR)加密">
+<meta property="og:url" content="http://suqianghotel.com/2016/11/02/ios-xor-encrypt/index.html">
 <meta property="og:site_name" content="阶前梧叶">
-<meta property="og:description" content="Hexo备忘命令
+<meta property="og:description" content="源码见文末
+异或简介
+异或，二元运算;
+符号^;
+口诀：相同为0,不相同为1;  
+举例
+10011101^10001010=00010111
 
 
-命令
-参数
-说明   
 
+应用场景
+密码加密(此场景在日常开发中使用较多,本文将着重介绍此应用场景)
+数据暂存
+嵌入式
 
-
-
-hexo init [folder]
-folder: 博客所在文件夹
-初始化博客文件  
-
-
-hexo new [layout] &amp;lt;title&amp;gt;
-layout: 模板名称  title:文件名称
-在 scaffolds 文件夹内，默认layout为 post
-
-
-hexo generate [-d] [-w]
--d: deploy">
-<meta property="og:updated_time" content="2016-09-14T10:39:46.000Z">
+异或加密原理
+假设明文A, 密钥B, 密文C,
+通过异或加密过程为A ^ B = C, 得到密文C
+如果此时知道密文A和密钥B,那么通过异或解密过程为C">
+<meta property="og:image" content="http://o7obltx2h.bkt.clouddn.com/imagexor.png">
+<meta property="og:updated_time" content="2016-11-02T06:19:50.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo 简单配置">
-<meta name="twitter:description" content="Hexo备忘命令
+<meta name="twitter:title" content="iOS异或(XOR)加密">
+<meta name="twitter:description" content="源码见文末
+异或简介
+异或，二元运算;
+符号^;
+口诀：相同为0,不相同为1;  
+举例
+10011101^10001010=00010111
 
 
-命令
-参数
-说明   
 
+应用场景
+密码加密(此场景在日常开发中使用较多,本文将着重介绍此应用场景)
+数据暂存
+嵌入式
 
-
-
-hexo init [folder]
-folder: 博客所在文件夹
-初始化博客文件  
-
-
-hexo new [layout] &amp;lt;title&amp;gt;
-layout: 模板名称  title:文件名称
-在 scaffolds 文件夹内，默认layout为 post
-
-
-hexo generate [-d] [-w]
--d: deploy">
+异或加密原理
+假设明文A, 密钥B, 密文C,
+通过异或加密过程为A ^ B = C, 得到密文C
+如果此时知道密文A和密钥B,那么通过异或解密过程为C">
+<meta name="twitter:image" content="http://o7obltx2h.bkt.clouddn.com/imagexor.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -119,7 +112,7 @@ hexo generate [-d] [-w]
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Hexo 简单配置 | 阶前梧叶</title>
+<title>iOS异或(XOR)加密 | 阶前梧叶</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -331,11 +324,11 @@ hexo generate [-d] [-w]
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-hexo笔记" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-ios-xor-encrypt" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/06/17/hexo笔记/" class="article-date">
-      <time datetime="2016-06-17T09:19:04.000Z" itemprop="datePublished">2016-06-17</time>
+      <a href="/2016/11/02/ios-xor-encrypt/" class="article-date">
+      <time datetime="2016-11-02T06:19:50.000Z" itemprop="datePublished">2016-11-02</time>
 </a>
     </div>
   
@@ -348,7 +341,7 @@ hexo generate [-d] [-w]
         
   
     <h1 class="article-title" itemprop="name">
-      Hexo 简单配置
+      iOS异或(XOR)加密
     </h1>
   
 
@@ -357,13 +350,13 @@ hexo generate [-d] [-w]
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/博客/">博客</a>
+    <a class="article-category-link" href="/categories/iOS-加密/">iOS 加密</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS-加密-XOR/">iOS 加密 XOR</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -373,72 +366,42 @@ hexo generate [-d] [-w]
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="Hexo备忘"><a href="#Hexo备忘" class="headerlink" title="Hexo备忘"></a>Hexo备忘</h2><h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>参数</th>
-<th>说明   </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>hexo init [folder]</td>
-<td>folder: 博客所在文件夹</td>
-<td>初始化博客文件  </td>
-</tr>
-<tr>
-<td>hexo new [layout] <code>&lt;title&gt;</code></td>
-<td>layout: 模板名称 <br> title:文件名称</td>
-<td>在 <code>scaffolds</code> 文件夹内，默认layout为 <code>post</code></td>
-</tr>
-<tr>
-<td>hexo generate [-d] [-w]</td>
-<td>-d: deploy <br> -w:watch</td>
-<td>生成并部署，位置可调换</td>
-</tr>
-<tr>
-<td>hexo publish [layout] <code>&lt;filename&gt;</code></td>
-<td>layout: <br> filename:文件名称</td>
-<td>发布指定草稿里的文件</td>
-</tr>
-<tr>
-<td>hexo server</td>
-<td>-p:指定端口 <br> -s:只启动静态文件 <br> -l:日志</td>
-<td>启动服务<br> 默认地址：<a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a></td>
-</tr>
-<tr>
-<td>hexo deploy</td>
-<td></td>
-<td>部署</td>
-</tr>
-<tr>
-<td>hexo clean</td>
-<td></td>
-<td>有问题，先清理 <br> 生成部署之前，先清理一下，错误莫名消失</td>
-</tr>
-</tbody>
-</table>
-<h3 id="标签表现"><a href="#标签表现" class="headerlink" title="标签表现"></a>标签表现</h3><p>格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% blockquote [author[, source]] [link] [source_link_title] %&#125;</span><br><span class="line">  content</span><br><span class="line">&#123;% endblockquote %&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h4><p><strong><em>简单</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% blockquote %&#125;</span><br><span class="line">吾十有五而志于学，三十而立，四十而不惑，五十而知天命，六十而耳顺，七十而从心所欲不逾矩</span><br><span class="line">&#123;% endblockquote %&#125;</span><br></pre></td></tr></table></figure></p>
-<blockquote><p>吾十有五而志于学，三十而立，四十而不惑，五十而知天命，六十而耳顺，七十而从心所欲不逾矩</p>
-</blockquote>
-<p><strong><em>来源</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% blockquote  孔子,论语 %&#125;</span><br><span class="line">吾十有五而志于学，三十而立，四十而不惑，五十而知天命，六十而耳顺，七十而从心所欲不逾矩</span><br><span class="line">&#123;% endblockquote %&#125;</span><br></pre></td></tr></table></figure></p>
-<blockquote><p>吾十有五而志于学，三十而立，四十而不惑，五十而知天命，六十而耳顺，七十而从心所欲不逾矩</p>
-<footer><strong>孔子</strong><cite>论语</cite></footer></blockquote>
-<p><strong><em>链接</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% blockquote  孔子,论语 http://suqiang.github.io/ %&#125;</span><br><span class="line">吾十有五而志于学，三十而立，四十而不惑，五十而知天命，六十而耳顺，七十而从心所欲不逾矩</span><br><span class="line">&#123;% endblockquote %&#125;</span><br></pre></td></tr></table></figure></p>
-<blockquote><p>吾十有五而志于学，三十而立，四十而不惑，五十而知天命，六十而耳顺，七十而从心所欲不逾矩</p>
-<footer><strong>孔子,论语</strong><cite><a href="http://suqiang.github.io/" target="_blank" rel="external">suqiang.github.io</a></cite></footer></blockquote>
-<p><strong><em>markdown_code</em></strong><br><figure class="highlight"><figcaption><span>数据库数据(json)</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">"data":&#123;</span><br><span class="line">  "name":"Grimes",</span><br><span class="line">  "blog":"http://suqiang.github.io/",</span><br><span class="line">  "age":25</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight objc"><figcaption><span>初始化方法(objc)</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (instancetype)initWithFrame:(<span class="built_in">CGRect</span>)frame</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">self</span> = [<span class="keyword">super</span> initWithFrame:frame];</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong><em>其他详细</em></strong><br>链接：<a href="https://hexo.io/docs/tag-plugins.html" target="_blank" rel="external">其他</a></p>
-<h3 id="资源文件"><a href="#资源文件" class="headerlink" title="资源文件"></a>资源文件</h3><ul>
-<li>可以在文件夹<code>source</code>创建自公有的资源文件夹，例如images；</li>
-<li>也可以在配置文件<code>_config.yml</code>里将<code>post_asset_folder</code>打开，设置为true(默认为false)，此时，在新建文章时，会自动生成和文章文件名称一致的文件夹，用来存放文章对应的资源。注意此时不能用markdown语法引用资源，而是用hexo自有的标签</li>
-<li><a href="https://hexo.io/docs/asset-folders.html" target="_blank" rel="external">详情</a></li>
+        <p>源码见文末</p>
+<h2 id="异或简介"><a href="#异或简介" class="headerlink" title="异或简介"></a>异或简介</h2><ul>
+<li><code>异或</code>，二元运算;</li>
+<li>符号<code>^</code>;</li>
+<li>口诀：相同为0,不相同为1;  </li>
+<li>举例<ul>
+<li>10011101^10001010=00010111</li>
 </ul>
-<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p><a href="https://hexo.io/" target="_blank" rel="external">Hexo官方网站</a><br><a href="http://www.jianshu.com/p/465830080ea9" title="简书:Github+Hexo博客搭建" target="_blank" rel="external">简书*Github+Hexo博客搭建</a><br><a href="http://www.jianshu.com/p/05289a4bc8b2/" title="如何搭建一个独立博客——简明Github Pages与Hexo教程" target="_blank" rel="external">简书*如何搭建一个独立博客——简明Github Pages与Hexo教程</a><br><a href="https://www.zhihu.com/question/24422335" title="有哪些好看的 Hexo 主题" target="_blank" rel="external">知乎*有哪些好看的 Hexo 主题</a><br><a href="https://www.zhihu.com/question/33324071" title="hexo下新建页面下如何放多个文章" target="_blank" rel="external">知乎*hexo下新建页面下如何放多个文章</a><br><a href="https://www.zhihu.com/question/21193762" title="使用hexo，如果换了电脑怎么更新博客？" target="_blank" rel="external">知乎*使用hexo，如果换了电脑怎么更新博客？</a></p>
-<h3 id="题外"><a href="#题外" class="headerlink" title="题外~"></a>题外~</h3><p>2016-06-17 17:19:04 小窝建成了，这个日子值得纪念，以后就在这里混了~</p>
+</li>
+</ul>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><ul>
+<li>密码加密(此场景在日常开发中使用较多,本文将着重介绍此应用场景)</li>
+<li>数据暂存</li>
+<li>嵌入式</li>
+</ul>
+<h2 id="异或加密原理"><a href="#异或加密原理" class="headerlink" title="异或加密原理"></a><code>异或加密</code>原理</h2><ul>
+<li>假设明文A, 密钥B, 密文C,</li>
+<li>通过<code>异或加密</code>过程为A ^ B = C, 得到密文C</li>
+<li>如果此时知道密文A和密钥B,那么通过<code>异或解密</code>过程为C ^ B = A, 重新得到明文A</li>
+<li><img src="http://o7obltx2h.bkt.clouddn.com/imagexor.png" alt="异或加密"></li>
+</ul>
+<h2 id="异或加密应用"><a href="#异或加密应用" class="headerlink" title="异或加密应用"></a><code>异或加密</code>应用</h2><ul>
+<li>企业由于数据具有保密性,需要对敏感数据进行加密。 数据存在的形式可能是客户端的缓存、内置资源文件、网络传输等，这些数据都有可能被用户，竞争对手，黑客截获的潜在风险；通过加密可以进行规避，异或加密是其中较为简单的一种实现方案。</li>
+<li>例如某公司App要内置一些核心资源配置文件，为防止用户窥探，采用了加密处理，先将方案分享如下：<ul>
+<li>后端生成配置文件时，用私钥对数据进行与运算处理，生成密文；客户端拿到密文，通过自动或手动打包的app中，app在运行时，采用相同的密钥、按照相同的算法进行异或运算，得到明文，进而使用。</li>
+<li>异或算法<ul>
+<li>假设 私钥<code>abcdefg</code>7位，将数据转换为<code>data</code>类型，获取所有字节；将字节每七位分别于私钥七位字符异或运算，一直循环到最后得到密文</li>
+<li>异或解密算法和加密算法一致，即通过这个算法运行一次是加密，再通过这个算法运行一次就是解密</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="iOS代码实现"><a href="#iOS代码实现" class="headerlink" title="iOS代码实现"></a>iOS代码实现</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 客户端内置私钥</span></span><br><span class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> <span class="keyword">const</span> *privateKey = <span class="string">@"ef37c9111210854f5986fc9ebb5548b2ae"</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NSData</span>(<span class="title">XOREncrypt</span>)</span></span><br><span class="line">- (<span class="built_in">NSData</span> *)xor_decrypt</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> xor_encrypt];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 加密</span></span><br><span class="line">- (<span class="built_in">NSData</span> *)xor_encrypt</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 获取key的长度</span></span><br><span class="line">    <span class="built_in">NSInteger</span> length = privateKey.length;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将OC字符串转换为C字符串</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *keys = [privateKey cStringUsingEncoding:<span class="built_in">NSASCIIStringEncoding</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> cKey[length];</span><br><span class="line"></span><br><span class="line">    memcpy(cKey, keys, length);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 数据初始化，空间未分配 配合使用 appendBytes</span></span><br><span class="line">    <span class="built_in">NSMutableData</span> *encryptData = [[<span class="built_in">NSMutableData</span> alloc] initWithCapacity:length];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取字节指针</span></span><br><span class="line">    <span class="keyword">const</span> Byte *point = <span class="keyword">self</span>.bytes;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">self</span>.length; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> l = i % length;                     <span class="comment">// 算出当前位置字节，要和密钥的异或运算的密钥字节</span></span><br><span class="line">        <span class="keyword">char</span> c = cKey[l];</span><br><span class="line">        Byte b = (Byte) ((point[i]) ^ c);       <span class="comment">// 异或运算</span></span><br><span class="line">        [encryptData appendBytes:&amp;b length:<span class="number">1</span>];  <span class="comment">// 追加字节</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> encryptData.copy;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><p><a href="https://github.com/suqiang/iOSDemo/blob/master/iOSDemo/Classes/Category/Encrypt/XOR/SQHXOREncryptUtil.m" target="_blank" rel="external">XORDemo源码</a></p>
 
       
     </div>
@@ -447,13 +410,13 @@ hexo generate [-d] [-w]
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/06/17/hexo笔记/">Hexo 简单配置</a></p>
+        <p><span>本文标题:</span><a href="/2016/11/02/ios-xor-encrypt/">iOS异或(XOR)加密</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">阶前梧叶</a></p>
-        <p><span>发布时间:</span>2016-06-17, 17:19:04</p>
-        <p><span>最后更新:</span>2016-09-14, 18:39:46</p>
+        <p><span>发布时间:</span>2016-11-02, 14:19:50</p>
+        <p><span>最后更新:</span>2016-11-02, 14:19:50</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/06/17/hexo笔记/" title="Hexo 简单配置">http://suqianghotel.com/2016/06/17/hexo笔记/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://suqianghotel.com/2016/06/17/hexo笔记/　　作者: 阶前梧叶" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/11/02/ios-xor-encrypt/" title="iOS异或(XOR)加密">http://suqianghotel.com/2016/11/02/ios-xor-encrypt/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://suqianghotel.com/2016/11/02/ios-xor-encrypt/　　作者: 阶前梧叶" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -465,12 +428,12 @@ hexo generate [-d] [-w]
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/09/13/mac-mulit-git-account-config/">
-                    Mac多个Git账户配置
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/09/14/ios-tableview-weixin-comment-md/">
+                    tableView实现微信朋友圈评论回复功能
                 </a>
             </div>
-        
         
     </nav>
 
@@ -479,7 +442,7 @@ hexo generate [-d] [-w]
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo备忘"><span class="toc-number">1.</span> <span class="toc-text">Hexo备忘</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#命令"><span class="toc-number">1.1.</span> <span class="toc-text">命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标签表现"><span class="toc-number">1.2.</span> <span class="toc-text">标签表现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#举例"><span class="toc-number">1.2.1.</span> <span class="toc-text">举例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#资源文件"><span class="toc-number">1.3.</span> <span class="toc-text">资源文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考文献"><span class="toc-number">1.4.</span> <span class="toc-text">参考文献</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#题外"><span class="toc-number">1.5.</span> <span class="toc-text">题外~</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#异或简介"><span class="toc-number">1.</span> <span class="toc-text">异或简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用场景"><span class="toc-number">2.</span> <span class="toc-text">应用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#异或加密原理"><span class="toc-number">3.</span> <span class="toc-text">异或加密原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#异或加密应用"><span class="toc-number">4.</span> <span class="toc-text">异或加密应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#iOS代码实现"><span class="toc-number">5.</span> <span class="toc-text">iOS代码实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#源码"><span class="toc-number">6.</span> <span class="toc-text">源码</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn,
@@ -510,7 +473,7 @@ hexo generate [-d] [-w]
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Hexo 简单配置　| 阶前梧叶　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"iOS异或(XOR)加密　| 阶前梧叶　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -526,7 +489,7 @@ hexo generate [-d] [-w]
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" data-thread-key="2016/06/17/hexo笔记/" data-title="Hexo 简单配置" data-url="http://suqianghotel.com/2016/06/17/hexo笔记/"></div>
+    <div class="ds-thread" data-thread-key="2016/11/02/ios-xor-encrypt/" data-title="iOS异或(XOR)加密" data-url="http://suqianghotel.com/2016/11/02/ios-xor-encrypt/"></div>
     <script>
         var duoshuoQuery = {short_name:"suqiang"};
         var loadComment = function(){
@@ -549,15 +512,15 @@ hexo generate [-d] [-w]
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/09/13/mac-mulit-git-account-config/" title="上一篇: Mac多个Git账户配置">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2016/09/14/ios-tableview-weixin-comment-md/" title="下一篇: tableView实现微信朋友圈评论回复功能">
+                <i class="fa fa-angle-right"></i>
+            </a>
         
     </div>
 
