@@ -1,93 +1,164 @@
-<!DOCTYPE html>
-<html lang="zh-Hans">
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
-
-    <!--[if lt IE 9]>
-        <style>body {display: none; background: none !important} </style>
-        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
-    <![endif]-->
-
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="format-detection" content="telephone=no" />
-<meta name="author" content="阶前梧叶" />
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
 
 
-<meta name="description" content="概述
-代码管理工具从流行的CVS,到SVN，到如今的Git, 尤其是Github的存在，加之git在代码管理的种种优势，git已经被越来越多的程序员喜爱。在日常开发中，我们可能面临着这样的尴尬：公司本身有git服务器，管理自己的代码。爱折腾的程序员，可在各大第三方代码管理平台，github, coding.net, 码云，也有着自己的账号,对于github,可能也有两个账号；这是就需要配置多个SS">
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Mac Git SSH," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="概述 代码管理工具从流行的CVS,到SVN，到如今的Git, 尤其是Github的存在，加之git在代码管理的种种优势，git已经被越来越多的程序员喜爱。在日常开发中，我们可能面临着这样的尴尬：公司本身有git服务器，管理自己的代码。爱折腾的程序员，可在各大第三方代码管理平台，github, coding.net, 码云，也有着自己的账号,对于github,可能也有两个账号；这是就需要配置多个SS">
+<meta name="keywords" content="Mac Git SSH">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mac多个Git账户配置">
 <meta property="og:url" content="http://suqianghotel.com/2016/09/13/mac-mulit-git-account-config/index.html">
 <meta property="og:site_name" content="阶前梧叶">
-<meta property="og:description" content="概述
-代码管理工具从流行的CVS,到SVN，到如今的Git, 尤其是Github的存在，加之git在代码管理的种种优势，git已经被越来越多的程序员喜爱。在日常开发中，我们可能面临着这样的尴尬：公司本身有git服务器，管理自己的代码。爱折腾的程序员，可在各大第三方代码管理平台，github, coding.net, 码云，也有着自己的账号,对于github,可能也有两个账号；这是就需要配置多个SS">
+<meta property="og:description" content="概述 代码管理工具从流行的CVS,到SVN，到如今的Git, 尤其是Github的存在，加之git在代码管理的种种优势，git已经被越来越多的程序员喜爱。在日常开发中，我们可能面临着这样的尴尬：公司本身有git服务器，管理自己的代码。爱折腾的程序员，可在各大第三方代码管理平台，github, coding.net, 码云，也有着自己的账号,对于github,可能也有两个账号；这是就需要配置多个SS">
 <meta property="og:image" content="http://o7obltx2h.bkt.clouddn.com/image/blog/ssh-oschina-config.png">
 <meta property="og:updated_time" content="2016-09-13T10:30:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mac多个Git账户配置">
-<meta name="twitter:description" content="概述
-代码管理工具从流行的CVS,到SVN，到如今的Git, 尤其是Github的存在，加之git在代码管理的种种优势，git已经被越来越多的程序员喜爱。在日常开发中，我们可能面临着这样的尴尬：公司本身有git服务器，管理自己的代码。爱折腾的程序员，可在各大第三方代码管理平台，github, coding.net, 码云，也有着自己的账号,对于github,可能也有两个账号；这是就需要配置多个SS">
+<meta name="twitter:description" content="概述 代码管理工具从流行的CVS,到SVN，到如今的Git, 尤其是Github的存在，加之git在代码管理的种种优势，git已经被越来越多的程序员喜爱。在日常开发中，我们可能面临着这样的尴尬：公司本身有git服务器，管理自己的代码。爱折腾的程序员，可在各大第三方代码管理平台，github, coding.net, 码云，也有着自己的账号,对于github,可能也有两个账号；这是就需要配置多个SS">
 <meta name="twitter:image" content="http://o7obltx2h.bkt.clouddn.com/image/blog/ssh-oschina-config.png">
 
-<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
 
-    <link rel="alternative" href="/atom.xml" title="阶前梧叶" type="application/atom+xml">
-
-
-
-    <link rel="shortcut icon" href="/ico/favicon.ico">
-
-
-
-    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
-
-
-
-    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
-
-
-
-    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
-    <link href="//cdn.bootcss.com/pace/1.0.2/themes/green/pace-theme-minimal.css" rel="stylesheet">
-
-
-<link rel="stylesheet" href="/css/style.css">
-
-
-
-<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
-
-
-<title>Mac多个Git账户配置 | 阶前梧叶</title>
-
-<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
-
-<script>
-    var yiliaConfig = {
-        fancybox: true,
-        animate: true,
-        isHome: false,
-        isPost: true,
-        isArchive: false,
-        isTag: false,
-        isCategory: false,
-        open_in_new: false,
-        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
-        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
-        search: undefined
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     }
+  };
 </script>
 
 
-    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+  <link rel="canonical" href="http://suqianghotel.com/2016/09/13/mac-mulit-git-account-config/"/>
 
 
 
-    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+  <title>Mac多个Git账户配置 | 阶前梧叶</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d5b1f017b6941d108f705c30be507dbd";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
 
 
 
@@ -95,260 +166,266 @@
 
 
 </head>
-<body>
-  <div id="container">
 
-    <div class="left-col" style="background-image: url('http://img1.mydrivers.com/img/20160614/s_8d9336a5942c4c0080530967f004448e.jpg');">
-    <div class="overlay"></div>
-<div class="intrude-less">
-    <header id="header" class="inner">
-        <a href="/" class="profilepic">
-            <img src="/img/avatar.jpg" class="animated zoomIn">
-        </a>
-        <hgroup>
-          <h1 class="header-author"><a href="/">阶前梧叶</a></h1>
-        </hgroup>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
-        
-        <p class="header-subtitle">个人技术成长之路</p>
-        
+  
+  
 
-        
+  <div class="container  page-post-detail ">
+    <div class="headband"></div>
 
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
 
-        
-            <div id="switch-btn" class="switch-btn">
-                <div class="icon">
-                    <div class="icon-ctn">
-                        <div class="icon-wrap icon-house" data-idx="0">
-                            <div class="birdhouse"></div>
-                            <div class="birdhouse_holes"></div>
-                        </div>
-                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
-                            <div class="ribbon"></div>
-                        </div>
-                        
-                        <div class="icon-wrap icon-link hide" data-idx="2">
-                            <div class="loopback_l"></div>
-                            <div class="loopback_r"></div>
-                        </div>
-                        
-                        
-                        <div class="icon-wrap icon-me hide" data-idx="3">
-                            <div class="user"></div>
-                            <div class="shoulder"></div>
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-                <div class="tips-box hide">
-                    <div class="tips-arrow"></div>
-                    <ul class="tips-inner">
-                        <li>菜单</li>
-                        <li>标签</li>
-                        
-                        <li>友情链接</li>
-                        
-                        
-                        <li>关于我</li>
-                        
-                    </ul>
-                </div>
-            </div>
-        
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">阶前梧叶</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">个人技术成长之路</p>
+      
+  </div>
 
-        <div id="switch-area" class="switch-area">
-            <div class="switch-wrap">
-                <section class="switch-part switch-part1">
-                    <nav class="header-menu">
-                        <ul>
-                        
-                            <li><a href="/">主页</a></li>
-                        
-                            <li><a href="/archives/">所有文章</a></li>
-                        
-                            <li><a href="/tags/随笔">随笔</a></li>
-                        
-                            <li><a href="/tags/">标签云</a></li>
-                        
-                            <li><a href="/about/">关于我</a></li>
-                        
-                        </ul>
-                    </nav>
-                    <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fa Email" target="_blank" href="mailto:squainghotel@gmail.com" title="Email"></a>
-                            
-                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/90hotel" title="新浪微博"></a>
-                            
-                                <a class="fa GitHub" target="_blank" href="https://github.com/suqiang" title="GitHub"></a>
-                            
-                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
-                            
-                        </ul>
-                    </nav>
-                </section>
-                
-                
-                <section class="switch-part switch-part2">
-                    <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac-Git-SSH/">Mac Git SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS-tableView-评论回复/">iOS tableView 评论回复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS-加密-XOR/">iOS 加密 XOR</a></li></ul>
-                    </div>
-                </section>
-                
-                
-                
-                <section class="switch-part switch-part3">
-                    <div id="js-friends">
-                    
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
-                    
-                    </div>
-                </section>
-                
-
-                
-                
-                <section class="switch-part switch-part4">
-                
-                    <div id="js-aboutme">我是谁，我从哪里来，我到哪里去？我就是我，是颜色不一样的吃货…</div>
-                </section>
-                
-            </div>
-        </div>
-    </header>                
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
 </div>
-    </div>
 
+<nav class="site-nav">
+  
 
-    <div class="mid-col">
-      <nav id="mobile-nav">
-      <div class="overlay">
-          <div class="slider-trigger"></div>
-          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">阶前梧叶</a></h1>
-      </div>
-    <div class="intrude-less">
-        <header id="header" class="inner">
-            <a href="/" class="profilepic">
-                <img src="/img/avatar.jpg" class="animated zoomIn">
-            </a>
-            <hgroup>
-              <h1 class="header-author"><a href="/" title="回到主页">阶前梧叶</a></h1>
-            </hgroup>
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
             
-            <p class="header-subtitle">个人技术成长之路</p>
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            <nav class="header-menu">
-                <ul>
-                
-                    <li><a href="/">主页</a></li>
-                
-                    <li><a href="/archives/">所有文章</a></li>
-                
-                    <li><a href="/tags/随笔">随笔</a></li>
-                
-                    <li><a href="/tags/">标签云</a></li>
-                
-                    <li><a href="/about/">关于我</a></li>
-                
-                <div class="clearfix"></div>
-                </ul>
-            </nav>
-            <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fa Email" target="_blank" href="mailto:squainghotel@gmail.com" title="Email"></a>
-                            
-                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/90hotel" title="新浪微博"></a>
-                            
-                                <a class="fa GitHub" target="_blank" href="https://github.com/suqiang" title="GitHub"></a>
-                            
-                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
-                            
-                        </ul>
-            </nav>
-        </header>                
-    </div>
-    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
 </nav>
-      <div class="body-wrap"><article id="post-mac-mulit-git-account-config" class="article article-type-post" itemscope itemprop="blogPost">
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
   
-    <div class="article-meta">
-      <a href="/2016/09/13/mac-mulit-git-account-config/" class="article-date">
-      <time datetime="2016-09-13T10:30:48.000Z" itemprop="datePublished">2016-09-13</time>
-</a>
-    </div>
+
   
-  <div class="article-inner">
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://suqianghotel.com/2016/09/13/mac-mulit-git-account-config/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="阶前梧叶">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.svg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="阶前梧叶">
+    </span>
+
     
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 class="article-title" itemprop="name">
-      Mac多个Git账户配置
-    </h1>
-  
-
-      </header>
-      
-      <div class="article-info article-info-post">
         
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术-Git/">技术 Git</a>
-    </div>
-
-
+          <h1 class="post-title" itemprop="name headline">Mac多个Git账户配置</h1>
         
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac-Git-SSH/">Mac Git SSH</a></li></ul>
-    </div>
 
-        <div class="clearfix"></div>
-      </div>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-13T18:30:48+08:00">
+                2016-09-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术-Git/" itemprop="url" rel="index">
+                    <span itemprop="name">技术 Git</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
         <h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><blockquote>
 <p>代码管理工具从流行的CVS,到SVN，到如今的Git, 尤其是Github的存在，加之git在代码管理的种种优势，git已经被越来越多的程序员喜爱。在日常开发中，我们可能面临着这样的尴尬：公司本身有git服务器，管理自己的代码。爱折腾的程序员，可在各大第三方代码管理平台，<code>github</code>, <code>coding.net</code>, <code>码云</code>，也有着自己的账号,对于github,可能也有两个账号；这是就需要配置多个SSH, 为了方便在一台电脑上对多个git仓库提交代码，现在将其总结如下</p>
 </blockquote>
 <h4 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h4><blockquote>
 <p>SSH key 可以让你在你的电脑和 Git 服务器之间建立安全的加密连接。一般你的ssh key存储在 这个目录下<code>/Users/{username}/.ssh</code></p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /Users/&#123;accountname&#125;/.ssh</span><br></pre></td></tr></table></figure>
-<p>查看.ssh目录会有这样几个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-rw-r--r--@ 1 &#123;username&#125;  staff   280B  8 30 15:12 config</span><br><span class="line">-rw-------  1 &#123;username&#125;  staff   3.2K  8 29 17:42 id_rsa</span><br><span class="line">-rw-r--r--  1 &#123;username&#125;  staff   748B  8 29 17:42 id_rsa.pub</span><br><span class="line">-rw-------  1 &#123;username&#125;  staff   3.2K  8 29 14:31 id_rsa_github</span><br><span class="line">-rw-r--r--  1 &#123;username&#125;  staff   748B  8 29 14:31 id_rsa_github.pub</span><br><span class="line">-rw-------  1 &#123;username&#125;  staff   1.6K  8 30 15:32 id_rsa_gitlab</span><br><span class="line">-rw-r--r--  1 &#123;username&#125;  staff   397B  8 30 15:32 id_rsa_gitlab.pub</span><br><span class="line">-rw-r--r--@ 1 &#123;username&#125;  staff   1.5K  9  2 10:06 known_hosts</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd /Users/&#123;accountname&#125;/.ssh</div></pre></td></tr></table></figure>
+<p>查看.ssh目录会有这样几个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">-rw-r--r--@ 1 &#123;username&#125;  staff   280B  8 30 15:12 config</div><div class="line">-rw-------  1 &#123;username&#125;  staff   3.2K  8 29 17:42 id_rsa</div><div class="line">-rw-r--r--  1 &#123;username&#125;  staff   748B  8 29 17:42 id_rsa.pub</div><div class="line">-rw-------  1 &#123;username&#125;  staff   3.2K  8 29 14:31 id_rsa_github</div><div class="line">-rw-r--r--  1 &#123;username&#125;  staff   748B  8 29 14:31 id_rsa_github.pub</div><div class="line">-rw-------  1 &#123;username&#125;  staff   1.6K  8 30 15:32 id_rsa_gitlab</div><div class="line">-rw-r--r--  1 &#123;username&#125;  staff   397B  8 30 15:32 id_rsa_gitlab.pub</div><div class="line">-rw-r--r--@ 1 &#123;username&#125;  staff   1.5K  9  2 10:06 known_hosts</div></pre></td></tr></table></figure></p>
 <p>如果你的目录下，没有你的目录下没有这些文件，没关系，下面将详细讲解这些文件的作用，以及如何生成<br>由于笔者已经配置过自己github和公司gitlab，所以会比较多，这里不必在意，现在我就<code>码云</code>为例，说明详细配置</p>
 <ol>
 <li>生成 SSH key</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;xxx@xx.com&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa -C &quot;xxx@xx.com&quot;</div></pre></td></tr></table></figure>
 <ol>
 <li>输入上述命令，点击回车后，会出现以下提示</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Generating public/private rsa key pair.</span><br><span class="line">Enter file in which to save the key (/Users/&#123;username&#125;/.ssh/id_rsa):</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Generating public/private rsa key pair.</div><div class="line">Enter file in which to save the key (/Users/&#123;username&#125;/.ssh/id_rsa):</div></pre></td></tr></table></figure>
 <p>这里是提示你生成的ssh key 的存储路径和名称；如果你是简单的配置一个账号，直接回车，自动取默认路径和名称。如何你是为多个git账号配置私钥/公钥，你需要自己指定路径和名称，笔者用的是<code>id_rsa_oschina</code>,名称可自己定义，具体如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Generating public/private rsa key pair.  </span><br><span class="line">Enter file in which to save the key (/Users/&#123;username&#125;/.ssh/id_rsa): /Users/&#123;username&#125;/.ssh/id_rsa_oschina</span><br></pre></td></tr></table></figure>
-<p>继续回车<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Enter passphrase (empty for no passphrase):</span><br><span class="line">Enter same passphrase again:</span><br></pre></td></tr></table></figure></p>
-<p>这里取默认值<code>空</code>,回车即可，最后出现如下图的回显，就说明你配置成功了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Your identification has been saved in /Users/&#123;username&#125;/.ssh/id_rsa_oschina.</span><br><span class="line">Your public key has been saved in /Users/&#123;username&#125;/.ssh/id_rsa_oschina.pub.</span><br><span class="line">The key fingerprint is:</span><br><span class="line">SHA256:lEmncZqtuXuHgZ4XtkVMkazLaTC5XgN0VLjYi3T8Fk8 xxx@xxx.com</span><br><span class="line">The key s randomart image is:</span><br><span class="line">+---[RSA 2048]----+</span><br><span class="line">|        o o..=+o |</span><br><span class="line">|       . @. + o X|</span><br><span class="line">|        B..B o   |</span><br><span class="line">|       . oB B . E|</span><br><span class="line">|        So X = + |</span><br><span class="line">|        ..* X o .|</span><br><span class="line">|       ..+ O o   |</span><br><span class="line">|        o.* .    |</span><br><span class="line">|        .o .     |</span><br><span class="line">+----[SHA256]-----+</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Generating public/private rsa key pair.  </div><div class="line">Enter file in which to save the key (/Users/&#123;username&#125;/.ssh/id_rsa): /Users/&#123;username&#125;/.ssh/id_rsa_oschina</div></pre></td></tr></table></figure>
+<p>继续回车<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Enter passphrase (empty for no passphrase):</div><div class="line">Enter same passphrase again:</div></pre></td></tr></table></figure></p>
+<p>这里取默认值<code>空</code>,回车即可，最后出现如下图的回显，就说明你配置成功了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">Your identification has been saved in /Users/&#123;username&#125;/.ssh/id_rsa_oschina.</div><div class="line">Your public key has been saved in /Users/&#123;username&#125;/.ssh/id_rsa_oschina.pub.</div><div class="line">The key fingerprint is:</div><div class="line">SHA256:lEmncZqtuXuHgZ4XtkVMkazLaTC5XgN0VLjYi3T8Fk8 xxx@xxx.com</div><div class="line">The key s randomart image is:</div><div class="line">+---[RSA 2048]----+</div><div class="line">|        o o..=+o |</div><div class="line">|       . @. + o X|</div><div class="line">|        B..B o   |</div><div class="line">|       . oB B . E|</div><div class="line">|        So X = + |</div><div class="line">|        ..* X o .|</div><div class="line">|       ..+ O o   |</div><div class="line">|        o.* .    |</div><div class="line">|        .o .     |</div><div class="line">+----[SHA256]-----+</div></pre></td></tr></table></figure></p>
 <ol>
 <li>将生成的公钥拷贝到剪贴板上，到git管理页面贴入即可</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pbcopy &lt; ~/.ssh/id_rsa_oschina.pub</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pbcopy &lt; ~/.ssh/id_rsa_oschina.pub</div></pre></td></tr></table></figure>
 <p>其中<code>id_rsa_oschina</code>.pub, 就是你刚才输入的名称<br>oschina配置：<br><img src="http://o7obltx2h.bkt.clouddn.com/image/blog/ssh-oschina-config.png" alt="oschina图片"></p>
 <ol>
 <li>测试连接是否成功</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@git.oschina.net</span><br></pre></td></tr></table></figure>
-<p>若返回<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Welcome to Git@OSC, yourname!</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -T git@git.oschina.net</div></pre></td></tr></table></figure>
+<p>若返回<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Welcome to Git@OSC, yourname!</div></pre></td></tr></table></figure></p>
 <p>则证明添加成功。  </p>
-<p>若返回<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">The authenticity of host &apos;git.oschina.net (116.211.167.152)&apos; can&apos;t be established.</span><br><span class="line">ECDSA key fingerprint is SHA256:FQGC9Kn/eye1W8icdBgrQp+KkGYoFgbVr17bmjey0Wc.</span><br><span class="line">Are you sure you want to continue connecting (yes/no)? yes</span><br><span class="line">Warning: Permanently added &apos;git.oschina.net,116.211.167.152&apos; (ECDSA) to the list of known hosts.</span><br><span class="line">Permission denied (publickey).</span><br></pre></td></tr></table></figure></p>
-<p>则未成功，执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-add ~/.ssh/id_rsa_oschina</span><br></pre></td></tr></table></figure></p>
+<p>若返回<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">The authenticity of host &apos;git.oschina.net (116.211.167.152)&apos; can&apos;t be established.</div><div class="line">ECDSA key fingerprint is SHA256:FQGC9Kn/eye1W8icdBgrQp+KkGYoFgbVr17bmjey0Wc.</div><div class="line">Are you sure you want to continue connecting (yes/no)? yes</div><div class="line">Warning: Permanently added &apos;git.oschina.net,116.211.167.152&apos; (ECDSA) to the list of known hosts.</div><div class="line">Permission denied (publickey).</div></pre></td></tr></table></figure></p>
+<p>则未成功，执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-add ~/.ssh/id_rsa_oschina</div></pre></td></tr></table></figure></p>
 <p>如果ssh-add 不成功，可以直接进入第5步<br>如果成功再次重复执行第四步  </p>
 <ol>
 <li>至此是否已经配置完成，答案<code>否</code></li>
@@ -356,8 +433,8 @@
 <blockquote>
 <p>如果你在github等上面有两个账号，可能就会导致git提交失败，那么这里就需要配置<code>~/.ssh/config</code>这个文件</p>
 </blockquote>
-<p>打开config文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open ~/.ssh/config</span><br></pre></td></tr></table></figure></p>
-<p>在文件中添加如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#oschina</span><br><span class="line">Host oschina  (名称自定义)</span><br><span class="line">  HostName git.oschina.net  (服务器地址)</span><br><span class="line">  user git   （`git`@git.oschina.net 与 这里`git`名称是一致的，也可自定义，但不建议修改）</span><br><span class="line">  IdentityFile ~/.ssh/id_rsa_oschina (密钥存储路径)</span><br></pre></td></tr></table></figure></p>
+<p>打开config文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">open ~/.ssh/config</div></pre></td></tr></table></figure></p>
+<p>在文件中添加如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#oschina</div><div class="line">Host oschina  (名称自定义)</div><div class="line">  HostName git.oschina.net  (服务器地址)</div><div class="line">  user git   （`git`@git.oschina.net 与 这里`git`名称是一致的，也可自定义，但不建议修改）</div><div class="line">  IdentityFile ~/.ssh/id_rsa_oschina (密钥存储路径)</div></pre></td></tr></table></figure></p>
 <h4 id="QA"><a href="#QA" class="headerlink" title="QA"></a>QA</h4><p>Q: 按照上述步骤执行了，仍然<code>Permission denied (publickey)</code></p>
 <blockquote>
 <p>试如下方案：</p>
@@ -373,7 +450,7 @@
 <li>每次重新执行嫌麻烦 ,<code>ssh-add -A -K</code>,添加到钥匙串内，这样下次如果没有知道密钥，那么则会自动取钥匙中存取的密钥</li>
 </ul>
 </blockquote>
-<p>Q: 报错如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">remote: Permission to username1/xxxx.git denied to username2.</span><br><span class="line">fatal: unable to access &apos;https://github.com/username1/xxxx.git/&apos;: The requested URL returned error: 403</span><br></pre></td></tr></table></figure></p>
+<p>Q: 报错如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">remote: Permission to username1/xxxx.git denied to username2.</div><div class="line">fatal: unable to access &apos;https://github.com/username1/xxxx.git/&apos;: The requested URL returned error: 403</div></pre></td></tr></table></figure></p>
 <blockquote>
 <ul>
 <li>原因可能是你有两个github账户， 以前使用一个登陆并管理代码，切换另一个账号管理代码时， 钥匙串存储仍然是第一个用户的密码</li>
@@ -384,86 +461,261 @@
 
       
     </div>
-    
-  </div>
-  
-    
-    <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/09/13/mac-mulit-git-account-config/">Mac多个Git账户配置</a></p>
-        <p><span>文章作者:</span><a href="/" title="回到主页">阶前梧叶</a></p>
-        <p><span>发布时间:</span>2016-09-13, 18:30:48</p>
-        <p><span>最后更新:</span>2016-09-13, 18:30:48</p>
-        <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/09/13/mac-mulit-git-account-config/" title="Mac多个Git账户配置">http://suqianghotel.com/2016/09/13/mac-mulit-git-account-config/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://suqianghotel.com/2016/09/13/mac-mulit-git-account-config/　　作者: 阶前梧叶" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
-            <script> var clipboard = new Clipboard('.copy-path'); </script>
-        </p>
-        <p>
-            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
-        </p>
+
+    <div>
+      
+        
+
+      
     </div>
 
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Mac-Git-SSH/" rel="tag"># Mac Git SSH</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/17/hexo笔记/" rel="next" title="Hexo 简单配置">
+                <i class="fa fa-chevron-left"></i> Hexo 简单配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/14/ios-tableview-weixin-comment-md/" rel="prev" title="tableView实现微信朋友圈评论回复功能">
+                tableView实现微信朋友圈评论回复功能 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
 
 
-    <nav id="article-nav">
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/09/14/ios-tableview-weixin-comment-md/">
-                    tableView实现微信朋友圈评论回复功能
-                </a>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.svg"
+               alt="阶前梧叶" />
+          <p class="site-author-name" itemprop="name">阶前梧叶</p>
+           
+              <p class="site-description motion-element" itemprop="description">记录分享所思、所想、所实现</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
             </div>
-        
-        
-            <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/06/17/hexo笔记/">
-                    Hexo 简单配置
-                </a>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              
             </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
         
-    </nav>
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具体操作"><span class="nav-number">2.</span> <span class="nav-text">具体操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#QA"><span class="nav-number">3.</span> <span class="nav-text">QA</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阶前梧叶</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
 
   
-</article>
 
-    <div id="toc" class="toc-article">
-    <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#概述"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#具体操作"><span class="toc-number">2.</span> <span class="toc-text">具体操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#QA"><span class="toc-number">3.</span> <span class="toc-text">QA</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
-</div>
-<style>
-    .left-col .switch-btn,
-    .left-col .switch-area {
-        display: none;
-    }
-</style>
-
-<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
-
-<script>
-    yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
 </script>
 
 
 
-    
-<div class="share">
-    
-        <div class="bdsharebuttonbox">
-            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
-            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
-            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
-            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
-            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
-            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
-            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
-        </div>
-        <script>
-            window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Mac多个Git账户配置　| 阶前梧叶　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-        </script>
-    
 
-    
-</div>
+
+
+
+
+
+  
 
 
 
@@ -471,121 +723,112 @@
 
 
 
-    
-      <div class="duoshuo" id="comments">
-    <div id="comment-box" ></div>
-    <div class="ds-thread" data-thread-key="2016/09/13/mac-mulit-git-account-config/" data-title="Mac多个Git账户配置" data-url="http://suqianghotel.com/2016/09/13/mac-mulit-git-account-config/"></div>
-    <script>
-        var duoshuoQuery = {short_name:"suqiang"};
-        var loadComment = function(){
-            var d = document, s = d.createElement('script');
-            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-            s.async = true; s.charset = 'UTF-8';
-            (d.head || d.body).appendChild(s);
-        }
-
-        
-    </script>
-    
-    <script> loadComment(); </script>
-
-</div>
-    
 
 
 
 
-    <div class="scroll" id="post-nav-button">
-        
-            <a href="/2016/09/14/ios-tableview-weixin-comment-md/" title="上一篇: tableView实现微信朋友圈评论回复功能">
-                <i class="fa fa-angle-left"></i>
-            </a>
-        
 
-        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
 
-        
-            <a href="/2016/06/17/hexo笔记/" title="下一篇: Hexo 简单配置">
-                <i class="fa fa-angle-right"></i>
-            </a>
-        
-    </div>
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/11/02/ios-xor-encrypt/">iOS异或(XOR)加密</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/14/ios-tableview-weixin-comment-md/">tableView实现微信朋友圈评论回复功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/13/mac-mulit-git-account-config/">Mac多个Git账户配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/17/hexo笔记/">Hexo 简单配置</a></li></ul>
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
 
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
 
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
 
-
-    <script>
-        
-    </script>
-</div>
-      <footer id="footer">
-    <div class="outer">
-        <div id="footer-info">
-            <div class="footer-left">
-                <i class="fa fa-copyright"></i> 
-                2015-2016 阶前梧叶
-            </div>
-            <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.0">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
-            </div>
-        </div>
-        
-            <div class="visit">
-                
-                    <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" >本站到访数: 
-                            <span id="busuanzi_value_site_uv"></span>
-                        </span>
-                    </span>
-                
-                
-                    <span>, </span>
-                
-                
-                    <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit">本页阅读量: 
-                            <span id="busuanzi_value_page_pv"></span>
-                        </span>
-                    </span>
-                
-            </div>
-        
-    </div>
-</footer>
-    </div>
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
-    
-<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+  
 
-    <script>
-        $(document).ready(function() {
-            var iPad = window.navigator.userAgent.indexOf('iPad');
-            if (iPad > -1 || $(".left-col").css("display") === "none") {
-                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
-                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
-                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
-            }
-            else {
-                var backgroundnum = 5;
-                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
-                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
-            }
-        })
-    </script>
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
 
 
 
 
-<div class="scroll" id="scroll">
-    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
-</div>
-<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
-  </div>
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
 </body>
 </html>

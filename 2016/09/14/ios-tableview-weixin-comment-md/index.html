@@ -1,139 +1,165 @@
-<!DOCTYPE html>
-<html lang="zh-Hans">
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
-
-    <!--[if lt IE 9]>
-        <style>body {display: none; background: none !important} </style>
-        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
-    <![endif]-->
-
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="format-detection" content="telephone=no" />
-<meta name="author" content="阶前梧叶" />
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
 
 
-<meta name="description" content="概述
-最近朋友问了一个微信朋友圈评论列表的实现，加之以前也做过类似的功能，这两天抽时间重新完善和设计了一下，以此文作为总结和大家分享，欢迎大家批评指教源码见文末
-
-截图
-需求描述
-列表页展现消息流
-消息内容支持全文和收起功能
-消息支持评论，评论条数不限制
-用户信息支持点击进入用户中心
-
-技术分析
-列表页展现消息流
 
 
 
-消息流一般采用tableview实现
-tableview实现又分为自动布局和绝">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS tableView 评论回复," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="概述 最近朋友问了一个微信朋友圈评论列表的实现，加之以前也做过类似的功能，这两天抽时间重新完善和设计了一下，以此文作为总结和大家分享，欢迎大家批评指教源码见文末  截图 需求描述 列表页展现消息流 消息内容支持全文和收起功能 消息支持评论，评论条数不限制 用户信息支持点击进入用户中心  技术分析 列表页展现消息流    消息流一般采用tableview实现 tableview实现又分为自动布局和绝">
+<meta name="keywords" content="iOS tableView 评论回复">
 <meta property="og:type" content="article">
 <meta property="og:title" content="tableView实现微信朋友圈评论回复功能">
 <meta property="og:url" content="http://suqianghotel.com/2016/09/14/ios-tableview-weixin-comment-md/index.html">
 <meta property="og:site_name" content="阶前梧叶">
-<meta property="og:description" content="概述
-最近朋友问了一个微信朋友圈评论列表的实现，加之以前也做过类似的功能，这两天抽时间重新完善和设计了一下，以此文作为总结和大家分享，欢迎大家批评指教源码见文末
-
-截图
-需求描述
-列表页展现消息流
-消息内容支持全文和收起功能
-消息支持评论，评论条数不限制
-用户信息支持点击进入用户中心
-
-技术分析
-列表页展现消息流
-
-
-
-消息流一般采用tableview实现
-tableview实现又分为自动布局和绝">
+<meta property="og:description" content="概述 最近朋友问了一个微信朋友圈评论列表的实现，加之以前也做过类似的功能，这两天抽时间重新完善和设计了一下，以此文作为总结和大家分享，欢迎大家批评指教源码见文末  截图 需求描述 列表页展现消息流 消息内容支持全文和收起功能 消息支持评论，评论条数不限制 用户信息支持点击进入用户中心  技术分析 列表页展现消息流    消息流一般采用tableview实现 tableview实现又分为自动布局和绝">
 <meta property="og:image" content="http://o7obltx2h.bkt.clouddn.com/image/blog/weixin_fed.gif">
 <meta property="og:image" content="http://o7obltx2h.bkt.clouddn.com/image/blog/weixin_mvvm.png">
 <meta property="og:updated_time" content="2016-09-14T10:43:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="tableView实现微信朋友圈评论回复功能">
-<meta name="twitter:description" content="概述
-最近朋友问了一个微信朋友圈评论列表的实现，加之以前也做过类似的功能，这两天抽时间重新完善和设计了一下，以此文作为总结和大家分享，欢迎大家批评指教源码见文末
-
-截图
-需求描述
-列表页展现消息流
-消息内容支持全文和收起功能
-消息支持评论，评论条数不限制
-用户信息支持点击进入用户中心
-
-技术分析
-列表页展现消息流
-
-
-
-消息流一般采用tableview实现
-tableview实现又分为自动布局和绝">
+<meta name="twitter:description" content="概述 最近朋友问了一个微信朋友圈评论列表的实现，加之以前也做过类似的功能，这两天抽时间重新完善和设计了一下，以此文作为总结和大家分享，欢迎大家批评指教源码见文末  截图 需求描述 列表页展现消息流 消息内容支持全文和收起功能 消息支持评论，评论条数不限制 用户信息支持点击进入用户中心  技术分析 列表页展现消息流    消息流一般采用tableview实现 tableview实现又分为自动布局和绝">
 <meta name="twitter:image" content="http://o7obltx2h.bkt.clouddn.com/image/blog/weixin_fed.gif">
 
-<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
 
-    <link rel="alternative" href="/atom.xml" title="阶前梧叶" type="application/atom+xml">
-
-
-
-    <link rel="shortcut icon" href="/ico/favicon.ico">
-
-
-
-    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
-
-
-
-    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
-
-
-
-    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
-    <link href="//cdn.bootcss.com/pace/1.0.2/themes/green/pace-theme-minimal.css" rel="stylesheet">
-
-
-<link rel="stylesheet" href="/css/style.css">
-
-
-
-<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
-
-
-<title>tableView实现微信朋友圈评论回复功能 | 阶前梧叶</title>
-
-<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
-
-<script>
-    var yiliaConfig = {
-        fancybox: true,
-        animate: true,
-        isHome: false,
-        isPost: true,
-        isArchive: false,
-        isTag: false,
-        isCategory: false,
-        open_in_new: false,
-        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
-        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
-        search: undefined
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     }
+  };
 </script>
 
 
-    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+  <link rel="canonical" href="http://suqianghotel.com/2016/09/14/ios-tableview-weixin-comment-md/"/>
 
 
 
-    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+  <title>tableView实现微信朋友圈评论回复功能 | 阶前梧叶</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d5b1f017b6941d108f705c30be507dbd";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
 
 
 
@@ -141,226 +167,232 @@ tableview实现又分为自动布局和绝">
 
 
 </head>
-<body>
-  <div id="container">
 
-    <div class="left-col" style="background-image: url('http://img1.mydrivers.com/img/20160614/s_8d9336a5942c4c0080530967f004448e.jpg');">
-    <div class="overlay"></div>
-<div class="intrude-less">
-    <header id="header" class="inner">
-        <a href="/" class="profilepic">
-            <img src="/img/avatar.jpg" class="animated zoomIn">
-        </a>
-        <hgroup>
-          <h1 class="header-author"><a href="/">阶前梧叶</a></h1>
-        </hgroup>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
-        
-        <p class="header-subtitle">个人技术成长之路</p>
-        
+  
+  
 
-        
+  <div class="container  page-post-detail ">
+    <div class="headband"></div>
 
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
 
-        
-            <div id="switch-btn" class="switch-btn">
-                <div class="icon">
-                    <div class="icon-ctn">
-                        <div class="icon-wrap icon-house" data-idx="0">
-                            <div class="birdhouse"></div>
-                            <div class="birdhouse_holes"></div>
-                        </div>
-                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
-                            <div class="ribbon"></div>
-                        </div>
-                        
-                        <div class="icon-wrap icon-link hide" data-idx="2">
-                            <div class="loopback_l"></div>
-                            <div class="loopback_r"></div>
-                        </div>
-                        
-                        
-                        <div class="icon-wrap icon-me hide" data-idx="3">
-                            <div class="user"></div>
-                            <div class="shoulder"></div>
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-                <div class="tips-box hide">
-                    <div class="tips-arrow"></div>
-                    <ul class="tips-inner">
-                        <li>菜单</li>
-                        <li>标签</li>
-                        
-                        <li>友情链接</li>
-                        
-                        
-                        <li>关于我</li>
-                        
-                    </ul>
-                </div>
-            </div>
-        
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">阶前梧叶</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">个人技术成长之路</p>
+      
+  </div>
 
-        <div id="switch-area" class="switch-area">
-            <div class="switch-wrap">
-                <section class="switch-part switch-part1">
-                    <nav class="header-menu">
-                        <ul>
-                        
-                            <li><a href="/">主页</a></li>
-                        
-                            <li><a href="/archives/">所有文章</a></li>
-                        
-                            <li><a href="/tags/随笔">随笔</a></li>
-                        
-                            <li><a href="/tags/">标签云</a></li>
-                        
-                            <li><a href="/about/">关于我</a></li>
-                        
-                        </ul>
-                    </nav>
-                    <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fa Email" target="_blank" href="mailto:squainghotel@gmail.com" title="Email"></a>
-                            
-                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/90hotel" title="新浪微博"></a>
-                            
-                                <a class="fa GitHub" target="_blank" href="https://github.com/suqiang" title="GitHub"></a>
-                            
-                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
-                            
-                        </ul>
-                    </nav>
-                </section>
-                
-                
-                <section class="switch-part switch-part2">
-                    <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac-Git-SSH/">Mac Git SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS-tableView-评论回复/">iOS tableView 评论回复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS-加密-XOR/">iOS 加密 XOR</a></li></ul>
-                    </div>
-                </section>
-                
-                
-                
-                <section class="switch-part switch-part3">
-                    <div id="js-friends">
-                    
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
-                    
-                    </div>
-                </section>
-                
-
-                
-                
-                <section class="switch-part switch-part4">
-                
-                    <div id="js-aboutme">我是谁，我从哪里来，我到哪里去？我就是我，是颜色不一样的吃货…</div>
-                </section>
-                
-            </div>
-        </div>
-    </header>                
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
 </div>
-    </div>
 
+<nav class="site-nav">
+  
 
-    <div class="mid-col">
-      <nav id="mobile-nav">
-      <div class="overlay">
-          <div class="slider-trigger"></div>
-          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">阶前梧叶</a></h1>
-      </div>
-    <div class="intrude-less">
-        <header id="header" class="inner">
-            <a href="/" class="profilepic">
-                <img src="/img/avatar.jpg" class="animated zoomIn">
-            </a>
-            <hgroup>
-              <h1 class="header-author"><a href="/" title="回到主页">阶前梧叶</a></h1>
-            </hgroup>
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
             
-            <p class="header-subtitle">个人技术成长之路</p>
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            <nav class="header-menu">
-                <ul>
-                
-                    <li><a href="/">主页</a></li>
-                
-                    <li><a href="/archives/">所有文章</a></li>
-                
-                    <li><a href="/tags/随笔">随笔</a></li>
-                
-                    <li><a href="/tags/">标签云</a></li>
-                
-                    <li><a href="/about/">关于我</a></li>
-                
-                <div class="clearfix"></div>
-                </ul>
-            </nav>
-            <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fa Email" target="_blank" href="mailto:squainghotel@gmail.com" title="Email"></a>
-                            
-                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/90hotel" title="新浪微博"></a>
-                            
-                                <a class="fa GitHub" target="_blank" href="https://github.com/suqiang" title="GitHub"></a>
-                            
-                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
-                            
-                        </ul>
-            </nav>
-        </header>                
-    </div>
-    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
 </nav>
-      <div class="body-wrap"><article id="post-ios-tableview-weixin-comment-md" class="article article-type-post" itemscope itemprop="blogPost">
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
   
-    <div class="article-meta">
-      <a href="/2016/09/14/ios-tableview-weixin-comment-md/" class="article-date">
-      <time datetime="2016-09-14T10:43:17.000Z" itemprop="datePublished">2016-09-14</time>
-</a>
-    </div>
+
   
-  <div class="article-inner">
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://suqianghotel.com/2016/09/14/ios-tableview-weixin-comment-md/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="阶前梧叶">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.svg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="阶前梧叶">
+    </span>
+
     
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 class="article-title" itemprop="name">
-      tableView实现微信朋友圈评论回复功能
-    </h1>
-  
-
-      </header>
-      
-      <div class="article-info article-info-post">
         
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/iOS/">iOS</a>
-    </div>
-
-
+          <h1 class="post-title" itemprop="name headline">tableView实现微信朋友圈评论回复功能</h1>
         
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS-tableView-评论回复/">iOS tableView 评论回复</a></li></ul>
-    </div>
 
-        <div class="clearfix"></div>
-      </div>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-14T18:43:17+08:00">
+                2016-09-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
         <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><blockquote>
 <p>最近朋友问了一个微信朋友圈评论列表的实现，加之以前也做过类似的功能，这两天抽时间重新完善和设计了一下，以此文作为总结和大家分享，欢迎大家批评指教<br>源码见文末</p>
 </blockquote>
@@ -411,7 +443,7 @@ tableview实现又分为自动布局和绝">
 </li>
 </ul>
 <h3 id="程序架构"><a href="#程序架构" class="headerlink" title="程序架构"></a>程序架构</h3><p><strong><em>目录结构</em></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">|____Controller</span><br><span class="line">| |____SQTopicTableViewController.h</span><br><span class="line">| |____SQTopicTableViewController.m</span><br><span class="line">| |____SQUserCenterViewController.h</span><br><span class="line">| |____SQUserCenterViewController.m</span><br><span class="line">|____Model</span><br><span class="line">| |____SQCommentModel.h</span><br><span class="line">| |____SQCommentModel.m</span><br><span class="line">| |____SQTopicModel.h</span><br><span class="line">| |____SQTopicModel.m</span><br><span class="line">|____View</span><br><span class="line">| |____SQCommentTableViewCell.h</span><br><span class="line">| |____SQCommentTableViewCell.m</span><br><span class="line">| |____SQTopicTableViewCell.h</span><br><span class="line">| |____SQTopicTableViewCell.m</span><br><span class="line">|____ViewModel</span><br><span class="line">| |____SQCommentCellViewModel.h</span><br><span class="line">| |____SQCommentCellViewModel.m</span><br><span class="line">| |____SQTopicCellViewModel.h</span><br><span class="line">| |____SQTopicCellViewModel.m</span><br><span class="line">|____Library</span><br><span class="line">| |____TTTAttributedLabel</span><br><span class="line">| | |____TTTAttributedLabel.h</span><br><span class="line">| | |____TTTAttributedLabel.m</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">|____Controller</div><div class="line">| |____SQTopicTableViewController.h</div><div class="line">| |____SQTopicTableViewController.m</div><div class="line">| |____SQUserCenterViewController.h</div><div class="line">| |____SQUserCenterViewController.m</div><div class="line">|____Model</div><div class="line">| |____SQCommentModel.h</div><div class="line">| |____SQCommentModel.m</div><div class="line">| |____SQTopicModel.h</div><div class="line">| |____SQTopicModel.m</div><div class="line">|____View</div><div class="line">| |____SQCommentTableViewCell.h</div><div class="line">| |____SQCommentTableViewCell.m</div><div class="line">| |____SQTopicTableViewCell.h</div><div class="line">| |____SQTopicTableViewCell.m</div><div class="line">|____ViewModel</div><div class="line">| |____SQCommentCellViewModel.h</div><div class="line">| |____SQCommentCellViewModel.m</div><div class="line">| |____SQTopicCellViewModel.h</div><div class="line">| |____SQTopicCellViewModel.m</div><div class="line">|____Library</div><div class="line">| |____TTTAttributedLabel</div><div class="line">| | |____TTTAttributedLabel.h</div><div class="line">| | |____TTTAttributedLabel.m</div></pre></td></tr></table></figure>
 <p>项目采用的是MVVM的分层结构<br><img src="http://o7obltx2h.bkt.clouddn.com/image/blog/weixin_mvvm.png" alt="MVVM"></p>
 <ul>
 <li>项目的ViewModel的作用</li>
@@ -437,28 +469,28 @@ tableview实现又分为自动布局和绝">
 <ul>
 <li>ViewModel模型，持有Model，并开放cell中各个子view布局属性，以及部分格式化后的模型字段,以及<code>cellHeight</code>缓存cell高度</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">SQTopicCellViewModel</span> : <span class="title">NSObject</span></span></span><br><span class="line"><span class="comment">// 持有原始数据模型</span></span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) SQTopicModel *topicModel;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSArray</span> *commentCellViewModels;</span><br><span class="line"><span class="comment">// cell 各个子元素布局属性</span></span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGRect</span> iconF;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGRect</span> nameLabelF;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGRect</span> contentF;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGRect</span> toggoleButtonF;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGRect</span> tableviewF;</span><br><span class="line"><span class="comment">// 缓存cell高度</span></span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGFloat</span> cellHeight;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">SQTopicCellViewModel</span> : <span class="title">NSObject</span></span></div><div class="line"><span class="comment">// 持有原始数据模型</span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) SQTopicModel *topicModel;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSArray</span> *commentCellViewModels;</div><div class="line"><span class="comment">// cell 各个子元素布局属性</span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGRect</span> iconF;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGRect</span> nameLabelF;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGRect</span> contentF;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGRect</span> toggoleButtonF;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGRect</span> tableviewF;</div><div class="line"><span class="comment">// 缓存cell高度</span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGFloat</span> cellHeight;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
 <ul>
 <li>重新ViewModel的set模型方法（即项目的<code>setTopicModel</code>方法），根据数据计算cell各个资源的布局，以及格式化数据</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setTopicModel:(SQTopicModel *)topicModel</span><br><span class="line">&#123;</span><br><span class="line">    _topicModel = topicModel;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">CGFloat</span> margin = <span class="number">15</span>;</span><br><span class="line">    <span class="built_in">CGFloat</span> conentW = [<span class="built_in">UIScreen</span> mainScreen].bounds.size.width - <span class="number">2</span> * margin;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">CGFloat</span> iconX = margin;</span><br><span class="line">    <span class="built_in">CGFloat</span> iconY = margin;</span><br><span class="line">    <span class="built_in">CGFloat</span> iconWH = <span class="number">50</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="built_in">CGFloat</span> nameLabelX = <span class="built_in">CGRectGetMaxX</span>(<span class="keyword">self</span>.iconF) + margin;</span><br><span class="line">    <span class="built_in">CGFloat</span> nameLabelW = <span class="number">250</span>;</span><br><span class="line">    <span class="built_in">CGFloat</span> nameLabelH = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">CGFloat</span> contentLabelX = nameLabelX;</span><br><span class="line">    <span class="built_in">CGFloat</span> contentLabelW = conentW - margin - iconWH;</span><br><span class="line">    <span class="built_in">CGFloat</span> contentLabelH = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">UIFont</span> *contentLabelFont = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">15</span>];</span><br><span class="line">    contentLabelH = [topicModel.content boundingRectWithSize:<span class="built_in">CGSizeMake</span>(contentLabelW, MAXFLOAT) options:<span class="built_in">NSStringDrawingUsesLineFragmentOrigin</span> attributes:@&#123;<span class="built_in">NSFontAttributeName</span>:contentLabelFont&#125; context:<span class="literal">nil</span>].size.height;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> lineNum = contentLabelH / contentLabelFont.lineHeight;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="built_in">CGFloat</span> toggoleButtonX = contentLabelX;</span><br><span class="line">    <span class="built_in">CGFloat</span> toggoleButtonW = <span class="number">32</span>;</span><br><span class="line">    <span class="built_in">CGFloat</span> toggoleButtonH = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (lineNum &gt; <span class="number">5</span>) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (topicModel.isExpanded == <span class="literal">NO</span>) &#123;</span><br><span class="line">            contentLabelH = contentLabelFont.lineHeight * <span class="number">5</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        toggoleButtonH = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计算cell高度，坐标Y值</span></span><br><span class="line">    。。。</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setTopicModel:(SQTopicModel *)topicModel</div><div class="line">&#123;</div><div class="line">    _topicModel = topicModel;</div><div class="line"></div><div class="line">    <span class="built_in">CGFloat</span> margin = <span class="number">15</span>;</div><div class="line">    <span class="built_in">CGFloat</span> conentW = [<span class="built_in">UIScreen</span> mainScreen].bounds.size.width - <span class="number">2</span> * margin;</div><div class="line"></div><div class="line">    <span class="built_in">CGFloat</span> iconX = margin;</div><div class="line">    <span class="built_in">CGFloat</span> iconY = margin;</div><div class="line">    <span class="built_in">CGFloat</span> iconWH = <span class="number">50</span>;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="built_in">CGFloat</span> nameLabelX = <span class="built_in">CGRectGetMaxX</span>(<span class="keyword">self</span>.iconF) + margin;</div><div class="line">    <span class="built_in">CGFloat</span> nameLabelW = <span class="number">250</span>;</div><div class="line">    <span class="built_in">CGFloat</span> nameLabelH = <span class="number">20</span>;</div><div class="line"></div><div class="line">    <span class="built_in">CGFloat</span> contentLabelX = nameLabelX;</div><div class="line">    <span class="built_in">CGFloat</span> contentLabelW = conentW - margin - iconWH;</div><div class="line">    <span class="built_in">CGFloat</span> contentLabelH = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="built_in">UIFont</span> *contentLabelFont = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">15</span>];</div><div class="line">    contentLabelH = [topicModel.content boundingRectWithSize:<span class="built_in">CGSizeMake</span>(contentLabelW, MAXFLOAT) options:<span class="built_in">NSStringDrawingUsesLineFragmentOrigin</span> attributes:@&#123;<span class="built_in">NSFontAttributeName</span>:contentLabelFont&#125; context:<span class="literal">nil</span>].size.height;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> lineNum = contentLabelH / contentLabelFont.lineHeight;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="built_in">CGFloat</span> toggoleButtonX = contentLabelX;</div><div class="line">    <span class="built_in">CGFloat</span> toggoleButtonW = <span class="number">32</span>;</div><div class="line">    <span class="built_in">CGFloat</span> toggoleButtonH = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (lineNum &gt; <span class="number">5</span>) &#123;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (topicModel.isExpanded == <span class="literal">NO</span>) &#123;</div><div class="line">            contentLabelH = contentLabelFont.lineHeight * <span class="number">5</span>;</div><div class="line">        &#125;</div><div class="line">        toggoleButtonH = <span class="number">20</span>;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 计算cell高度，坐标Y值</span></div><div class="line">    。。。</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <ul>
 <li>cell持有自身ViewModel模型, 在tableView的数据源给cell注入viewModel时，确定cell各元素布局以及数据</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setTopicViewModel:(SQTopicCellViewModel *)topicViewModel</span><br><span class="line">&#123;</span><br><span class="line">    _topicViewModel = topicViewModel;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">self</span>.icon.image = [<span class="built_in">UIImage</span> imageNamed:topicViewModel.topicModel.icon];</span><br><span class="line">    <span class="keyword">self</span>.icon.frame = topicViewModel.iconF;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">self</span>.nameLabel.frame = topicViewModel.nameLabelF;</span><br><span class="line">    <span class="keyword">self</span>.nameLabel.text = topicViewModel.topicModel.userame;</span><br><span class="line"></span><br><span class="line">    。。。</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setTopicViewModel:(SQTopicCellViewModel *)topicViewModel</div><div class="line">&#123;</div><div class="line">    _topicViewModel = topicViewModel;</div><div class="line"></div><div class="line">    <span class="keyword">self</span>.icon.image = [<span class="built_in">UIImage</span> imageNamed:topicViewModel.topicModel.icon];</div><div class="line">    <span class="keyword">self</span>.icon.frame = topicViewModel.iconF;</div><div class="line"></div><div class="line">    <span class="keyword">self</span>.nameLabel.frame = topicViewModel.nameLabelF;</div><div class="line">    <span class="keyword">self</span>.nameLabel.text = topicViewModel.topicModel.userame;</div><div class="line"></div><div class="line">    。。。</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <ul>
 <li>viewModel高度（cellHeight）计算，某些cell的子元素，根据数据不一定显示，需要单独判端。笔者开始采用的是在计算完成一个元素后，就判断是否显示，并确定<code>y</code>值。但是如果后面元素的显示如果依赖于上一元素的位置，甚至是嵌套依赖，那么情况就会变得过于复杂，笔者把这部分放到了最后，只根据高度是否大于0来判读，各元素是否显示，在计算是通过赋值自身高度是否为零即可</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setTopicModel:(SQTopicModel *)topicModel</span><br><span class="line">&#123;</span><br><span class="line">    _topicModel = topicModel;</span><br><span class="line">    <span class="comment">// 计算各个子元素的大小</span></span><br><span class="line">    。。。</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计算cell高度，各元素坐标Y值</span></span><br><span class="line">    <span class="keyword">if</span> (nameLabelH &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.cellHeight += margin;</span><br><span class="line">        <span class="keyword">self</span>.nameLabelF = <span class="built_in">CGRectMake</span>(nameLabelX, <span class="keyword">self</span>.cellHeight, nameLabelW, nameLabelH);</span><br><span class="line">        <span class="keyword">self</span>.cellHeight += nameLabelH;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (contentLabelH &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.cellHeight += margin * <span class="number">0.5</span>;</span><br><span class="line">        <span class="keyword">self</span>.contentF = <span class="built_in">CGRectMake</span>(contentLabelX, <span class="keyword">self</span>.cellHeight, contentLabelW, contentLabelH);</span><br><span class="line">        <span class="keyword">self</span>.cellHeight += contentLabelH;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (toggoleButtonH &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.cellHeight += margin * <span class="number">0.5</span>;</span><br><span class="line">        <span class="keyword">self</span>.toggoleButtonF = <span class="built_in">CGRectMake</span>(toggoleButtonX,  <span class="keyword">self</span>.cellHeight, toggoleButtonW, toggoleButtonH);</span><br><span class="line">        <span class="keyword">self</span>.cellHeight += toggoleButtonH;</span><br><span class="line">    &#125;</span><br><span class="line">    。。。。</span><br><span class="line">    <span class="keyword">self</span>.cellHeight += margin * <span class="number">0.5</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setTopicModel:(SQTopicModel *)topicModel</div><div class="line">&#123;</div><div class="line">    _topicModel = topicModel;</div><div class="line">    <span class="comment">// 计算各个子元素的大小</span></div><div class="line">    。。。</div><div class="line"></div><div class="line">    <span class="comment">// 计算cell高度，各元素坐标Y值</span></div><div class="line">    <span class="keyword">if</span> (nameLabelH &gt; <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">self</span>.cellHeight += margin;</div><div class="line">        <span class="keyword">self</span>.nameLabelF = <span class="built_in">CGRectMake</span>(nameLabelX, <span class="keyword">self</span>.cellHeight, nameLabelW, nameLabelH);</div><div class="line">        <span class="keyword">self</span>.cellHeight += nameLabelH;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (contentLabelH &gt; <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">self</span>.cellHeight += margin * <span class="number">0.5</span>;</div><div class="line">        <span class="keyword">self</span>.contentF = <span class="built_in">CGRectMake</span>(contentLabelX, <span class="keyword">self</span>.cellHeight, contentLabelW, contentLabelH);</div><div class="line">        <span class="keyword">self</span>.cellHeight += contentLabelH;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (toggoleButtonH &gt; <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">self</span>.cellHeight += margin * <span class="number">0.5</span>;</div><div class="line">        <span class="keyword">self</span>.toggoleButtonF = <span class="built_in">CGRectMake</span>(toggoleButtonX,  <span class="keyword">self</span>.cellHeight, toggoleButtonW, toggoleButtonH);</div><div class="line">        <span class="keyword">self</span>.cellHeight += toggoleButtonH;</div><div class="line">    &#125;</div><div class="line">    。。。。</div><div class="line">    <span class="keyword">self</span>.cellHeight += margin * <span class="number">0.5</span>;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <ul>
 <li>cell评论区实现<blockquote>
 <p>cell持有一个tableview（专门给评论列表显示）， 把代理、数据源给自己。每一条评论也设计成tableviewcell, 有着自己的viewModel(SQCommentCellViewModel),实现逻辑上述相似，不在重复</p>
 </blockquote>
 </li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">SQTopicTableViewCell</span>()&lt;<span class="title">UITableViewDelegate</span>, <span class="title">UITableViewDataSource</span>, <span class="title">SQCommentTableViewCellDelegate</span>&gt;</span></span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIImageView</span> *icon;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) TTTAttributedLabel *nameLabel;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) TTTAttributedLabel *topicLabel;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UITableView</span> *commentTableView;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIButton</span> *toggoleButton;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">SQTopicTableViewCell</span></span></span><br><span class="line"></span><br><span class="line">- (instancetype)initWithStyle:(<span class="built_in">UITableViewCellStyle</span>)style reuseIdentifier:(<span class="built_in">NSString</span> *)reuseIdentifier</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> initWithStyle:style reuseIdentifier:reuseIdentifier];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.selectionStyle = <span class="built_in">UITableViewCellSelectionStyleNone</span>;</span><br><span class="line">        <span class="comment">// 其他元素</span></span><br><span class="line">        。。。</span><br><span class="line"></span><br><span class="line">        <span class="comment">// tableview</span></span><br><span class="line">        _commentTableView = [[<span class="built_in">UITableView</span> alloc] initWithFrame:<span class="built_in">CGRectZero</span>];</span><br><span class="line">        _commentTableView.delegate = <span class="keyword">self</span>;</span><br><span class="line">        _commentTableView.dataSource = <span class="keyword">self</span>;</span><br><span class="line">        _commentTableView.backgroundColor = [<span class="built_in">UIColor</span> colorWithRed:<span class="number">236</span>/<span class="number">256.0</span> green:<span class="number">236</span>/<span class="number">256.0</span> blue:<span class="number">236</span>/<span class="number">256.0</span> alpha:<span class="number">1</span>];</span><br><span class="line">        _commentTableView.bounces = <span class="literal">NO</span>;</span><br><span class="line">        _commentTableView.separatorStyle = <span class="built_in">UITableViewCellSeparatorStyleNone</span>;</span><br><span class="line">        [_commentTableView registerClass:[SQCommentTableViewCell class] forCellReuseIdentifier:<span class="string">@"comment"</span>];</span><br><span class="line">        [<span class="keyword">self</span>.contentView addSubview:_commentTableView];</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setTopicViewModel:(SQTopicCellViewModel *)topicViewModel</span><br><span class="line">&#123;</span><br><span class="line">    _topicViewModel = topicViewModel;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 其他布局数据设值</span></span><br><span class="line">    。。。。</span><br><span class="line"></span><br><span class="line">    <span class="comment">//tablevew布局，加载数据</span></span><br><span class="line">    <span class="keyword">self</span>.commentTableView.frame = topicViewModel.tableviewF; <span class="comment">// 这里的tableviewF的计算在上层ViewModel中（即____SQTopicTableViewCell）</span></span><br><span class="line">    [<span class="keyword">self</span>.commentTableView reloadData];  <span class="comment">// 数据源初始化以及组装也在SQTopicCellViewModel中commentCellViewModels</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">CGFloat</span>)tableView:(<span class="built_in">UITableView</span> *)tableView heightForRowAtIndexPath:(nonnull <span class="built_in">NSIndexPath</span> *)indexPath</span><br><span class="line">&#123;</span><br><span class="line">    SQCommentCellViewModel *topicViewModel = <span class="keyword">self</span>.topicViewModel.commentCellViewModels[indexPath.row];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> topicViewModel.cellHeight;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSInteger</span>)numberOfSectionsInTableView:(<span class="built_in">UITableView</span> *)tableView</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSInteger</span>)tableView:(<span class="built_in">UITableView</span> *)tableView numberOfRowsInSection:(<span class="built_in">NSInteger</span>)section &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>.topicViewModel.commentCellViewModels.count;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath &#123;</span><br><span class="line">    SQCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<span class="string">@"comment"</span>];</span><br><span class="line">    cell.commentCellVM = <span class="keyword">self</span>.topicViewModel.commentCellViewModels[indexPath.row];</span><br><span class="line">    cell.delegate = <span class="keyword">self</span>;</span><br><span class="line">    <span class="keyword">return</span> cell;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">SQTopicTableViewCell</span>()&lt;<span class="title">UITableViewDelegate</span>, <span class="title">UITableViewDataSource</span>, <span class="title">SQCommentTableViewCellDelegate</span>&gt;</span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIImageView</span> *icon;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) TTTAttributedLabel *nameLabel;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) TTTAttributedLabel *topicLabel;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UITableView</span> *commentTableView;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIButton</span> *toggoleButton;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">SQTopicTableViewCell</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">instancetype</span>)initWithStyle:(<span class="built_in">UITableViewCellStyle</span>)style reuseIdentifier:(<span class="built_in">NSString</span> *)reuseIdentifier</div><div class="line">&#123;</div><div class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> initWithStyle:style reuseIdentifier:reuseIdentifier];</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</div><div class="line">        <span class="keyword">self</span>.selectionStyle = <span class="built_in">UITableViewCellSelectionStyleNone</span>;</div><div class="line">        <span class="comment">// 其他元素</span></div><div class="line">        。。。</div><div class="line"></div><div class="line">        <span class="comment">// tableview</span></div><div class="line">        _commentTableView = [[<span class="built_in">UITableView</span> alloc] initWithFrame:<span class="built_in">CGRectZero</span>];</div><div class="line">        _commentTableView.delegate = <span class="keyword">self</span>;</div><div class="line">        _commentTableView.dataSource = <span class="keyword">self</span>;</div><div class="line">        _commentTableView.backgroundColor = [<span class="built_in">UIColor</span> colorWithRed:<span class="number">236</span>/<span class="number">256.0</span> green:<span class="number">236</span>/<span class="number">256.0</span> blue:<span class="number">236</span>/<span class="number">256.0</span> alpha:<span class="number">1</span>];</div><div class="line">        _commentTableView.bounces = <span class="literal">NO</span>;</div><div class="line">        _commentTableView.separatorStyle = <span class="built_in">UITableViewCellSeparatorStyleNone</span>;</div><div class="line">        [_commentTableView registerClass:[SQCommentTableViewCell <span class="keyword">class</span>] forCellReuseIdentifier:<span class="string">@"comment"</span>];</div><div class="line">        [<span class="keyword">self</span>.contentView addSubview:_commentTableView];</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)setTopicViewModel:(SQTopicCellViewModel *)topicViewModel</div><div class="line">&#123;</div><div class="line">    _topicViewModel = topicViewModel;</div><div class="line"></div><div class="line">    <span class="comment">// 其他布局数据设值</span></div><div class="line">    。。。。</div><div class="line"></div><div class="line">    <span class="comment">//tablevew布局，加载数据</span></div><div class="line">    <span class="keyword">self</span>.commentTableView.frame = topicViewModel.tableviewF; <span class="comment">// 这里的tableviewF的计算在上层ViewModel中（即____SQTopicTableViewCell）</span></div><div class="line">    [<span class="keyword">self</span>.commentTableView reloadData];  <span class="comment">// 数据源初始化以及组装也在SQTopicCellViewModel中commentCellViewModels</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="built_in">CGFloat</span>)tableView:(<span class="built_in">UITableView</span> *)tableView heightForRowAtIndexPath:(<span class="keyword">nonnull</span> <span class="built_in">NSIndexPath</span> *)indexPath</div><div class="line">&#123;</div><div class="line">    SQCommentCellViewModel *topicViewModel = <span class="keyword">self</span>.topicViewModel.commentCellViewModels[indexPath.row];</div><div class="line"></div><div class="line">    <span class="keyword">return</span> topicViewModel.cellHeight;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="built_in">NSInteger</span>)numberOfSectionsInTableView:(<span class="built_in">UITableView</span> *)tableView</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="built_in">NSInteger</span>)tableView:(<span class="built_in">UITableView</span> *)tableView numberOfRowsInSection:(<span class="built_in">NSInteger</span>)section &#123;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="keyword">self</span>.topicViewModel.commentCellViewModels.count;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath &#123;</div><div class="line">    SQCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<span class="string">@"comment"</span>];</div><div class="line">    cell.commentCellVM = <span class="keyword">self</span>.topicViewModel.commentCellViewModels[indexPath.row];</div><div class="line">    cell.delegate = <span class="keyword">self</span>;</div><div class="line">    <span class="keyword">return</span> cell;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
 <p><em>评论的tableview高度是如何计算的?</em><br>在<code>SQTopicCellViewModel</code>中持有commentCellViewModels数组， 在将评论原始数据转化我ViewModel中时，能确定各个评论cell的高度，数组中所有高度加起来，就是评论tableview的高度</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setTopicModel:(SQTopicModel *)topicModel</span><br><span class="line">&#123;</span><br><span class="line">    _topicModel = topicModel;</span><br><span class="line"></span><br><span class="line">    。。。</span><br><span class="line"></span><br><span class="line">    <span class="built_in">CGFloat</span> tableViewX = contentLabelX;</span><br><span class="line">    <span class="built_in">CGFloat</span> tableViewW = [<span class="built_in">UIScreen</span> mainScreen].bounds.size.width - margin - tableViewX;</span><br><span class="line">    <span class="built_in">CGFloat</span> tableViewH = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSArray</span> *commentModels = topicModel.commentModels;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSMutableArray</span> *mutableVMs = [<span class="built_in">NSMutableArray</span> array];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (commentModels.count &gt; <span class="number">0</span>) &#123;</span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; commentModels.count; i++) &#123;</span><br><span class="line">           SQCommentCellViewModel *commmentVM = [[SQCommentCellViewModel alloc] init];</span><br><span class="line">           commmentVM.maxW = tableViewW;        <span class="comment">// 先要给出宽度，方便评论cell根据文字计算出自身高度</span></span><br><span class="line">           commmentVM.commentModel = commentModels[i];</span><br><span class="line"></span><br><span class="line">           tableViewH += commmentVM.cellHeight; <span class="comment">// 所有高度加起来</span></span><br><span class="line"></span><br><span class="line">           [mutableVMs addObject:commmentVM];   </span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">self</span>.commentCellViewModels = mutableVMs.copy;<span class="comment">// 构造数据源</span></span><br><span class="line"></span><br><span class="line">    。。。</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setTopicModel:(SQTopicModel *)topicModel</div><div class="line">&#123;</div><div class="line">    _topicModel = topicModel;</div><div class="line"></div><div class="line">    。。。</div><div class="line"></div><div class="line">    <span class="built_in">CGFloat</span> tableViewX = contentLabelX;</div><div class="line">    <span class="built_in">CGFloat</span> tableViewW = [<span class="built_in">UIScreen</span> mainScreen].bounds.size.width - margin - tableViewX;</div><div class="line">    <span class="built_in">CGFloat</span> tableViewH = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="built_in">NSArray</span> *commentModels = topicModel.commentModels;</div><div class="line"></div><div class="line">    <span class="built_in">NSMutableArray</span> *mutableVMs = [<span class="built_in">NSMutableArray</span> array];</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (commentModels.count &gt; <span class="number">0</span>) &#123;</div><div class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; commentModels.count; i++) &#123;</div><div class="line">           SQCommentCellViewModel *commmentVM = [[SQCommentCellViewModel alloc] init];</div><div class="line">           commmentVM.maxW = tableViewW;        <span class="comment">// 先要给出宽度，方便评论cell根据文字计算出自身高度</span></div><div class="line">           commmentVM.commentModel = commentModels[i];</div><div class="line"></div><div class="line">           tableViewH += commmentVM.cellHeight; <span class="comment">// 所有高度加起来</span></div><div class="line"></div><div class="line">           [mutableVMs addObject:commmentVM];   </div><div class="line">       &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">self</span>.commentCellViewModels = mutableVMs.copy;<span class="comment">// 构造数据源</span></div><div class="line"></div><div class="line">    。。。</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <ul>
 <li>展开全文实现<blockquote>
 <ul>
@@ -469,15 +501,15 @@ tableview实现又分为自动布局和绝">
 </blockquote>
 </li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">。。。</span><br><span class="line"></span><br><span class="line"><span class="built_in">CGFloat</span> contentLabelX = nameLabelX;</span><br><span class="line"><span class="built_in">CGFloat</span> contentLabelW = conentW - margin - iconWH;</span><br><span class="line"><span class="built_in">CGFloat</span> contentLabelH = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">UIFont</span> *contentLabelFont = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">15</span>];</span><br><span class="line">contentLabelH = [topicModel.content boundingRectWithSize:<span class="built_in">CGSizeMake</span>(contentLabelW, MAXFLOAT) options:<span class="built_in">NSStringDrawingUsesLineFragmentOrigin</span> attributes:@&#123;<span class="built_in">NSFontAttributeName</span>:contentLabelFont&#125; context:<span class="literal">nil</span>].size.height;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> lineNum = contentLabelH / contentLabelFont.lineHeight;</span><br><span class="line"></span><br><span class="line"><span class="built_in">CGFloat</span> toggoleButtonX = contentLabelX;</span><br><span class="line"><span class="built_in">CGFloat</span> toggoleButtonW = <span class="number">32</span>;</span><br><span class="line"><span class="built_in">CGFloat</span> toggoleButtonH = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (lineNum &gt; <span class="number">5</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (topicModel.isExpanded == <span class="literal">NO</span>) &#123;</span><br><span class="line">        contentLabelH = contentLabelFont.lineHeight * <span class="number">5</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    toggoleButtonH = <span class="number">20</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">。。。</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">。。。</div><div class="line"></div><div class="line"><span class="built_in">CGFloat</span> contentLabelX = nameLabelX;</div><div class="line"><span class="built_in">CGFloat</span> contentLabelW = conentW - margin - iconWH;</div><div class="line"><span class="built_in">CGFloat</span> contentLabelH = <span class="number">0</span>;</div><div class="line"></div><div class="line"><span class="built_in">UIFont</span> *contentLabelFont = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">15</span>];</div><div class="line">contentLabelH = [topicModel.content boundingRectWithSize:<span class="built_in">CGSizeMake</span>(contentLabelW, MAXFLOAT) options:<span class="built_in">NSStringDrawingUsesLineFragmentOrigin</span> attributes:@&#123;<span class="built_in">NSFontAttributeName</span>:contentLabelFont&#125; context:<span class="literal">nil</span>].size.height;</div><div class="line"></div><div class="line"><span class="keyword">int</span> lineNum = contentLabelH / contentLabelFont.lineHeight;</div><div class="line"></div><div class="line"><span class="built_in">CGFloat</span> toggoleButtonX = contentLabelX;</div><div class="line"><span class="built_in">CGFloat</span> toggoleButtonW = <span class="number">32</span>;</div><div class="line"><span class="built_in">CGFloat</span> toggoleButtonH = <span class="number">0</span>;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (lineNum &gt; <span class="number">5</span>) &#123;</div><div class="line">    <span class="keyword">if</span> (topicModel.isExpanded == <span class="literal">NO</span>) &#123;</div><div class="line">        contentLabelH = contentLabelFont.lineHeight * <span class="number">5</span>;</div><div class="line">    &#125;</div><div class="line">    toggoleButtonH = <span class="number">20</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">。。。</div></pre></td></tr></table></figure>
 <blockquote>
 <p>将 <code>收起/全文</code>事件代理给vc</p>
 </blockquote>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)cellToggleExpentContent:(SQTopicTableViewCell *)cell</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 查询位置</span></span><br><span class="line">    <span class="built_in">NSIndexPath</span> *indexPath = [<span class="keyword">self</span>.tableView indexPathForCell:cell];</span><br><span class="line"></span><br><span class="line">    SQTopicCellViewModel *viewModel = <span class="keyword">self</span>.dataArray[indexPath.row];</span><br><span class="line">    <span class="comment">// 修改展开状态</span></span><br><span class="line">    viewModel.topicModel.expanded = !viewModel.topicModel.isExpanded;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 更新布局</span></span><br><span class="line">    SQTopicCellViewModel *newViewModel = [[SQTopicCellViewModel alloc] init];</span><br><span class="line">    newViewModel.topicModel = viewModel.topicModel;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 替换数据</span></span><br><span class="line">    [<span class="keyword">self</span>.dataArray replaceObjectAtIndex:indexPath.row withObject:newViewModel];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 局部刷新表格</span></span><br><span class="line">    [<span class="keyword">self</span>.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:<span class="built_in">UITableViewRowAnimationNone</span>];</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)cellToggleExpentContent:(SQTopicTableViewCell *)cell</div><div class="line">&#123;</div><div class="line">    <span class="comment">// 查询位置</span></div><div class="line">    <span class="built_in">NSIndexPath</span> *indexPath = [<span class="keyword">self</span>.tableView indexPathForCell:cell];</div><div class="line"></div><div class="line">    SQTopicCellViewModel *viewModel = <span class="keyword">self</span>.dataArray[indexPath.row];</div><div class="line">    <span class="comment">// 修改展开状态</span></div><div class="line">    viewModel.topicModel.expanded = !viewModel.topicModel.isExpanded;</div><div class="line"></div><div class="line">    <span class="comment">// 更新布局</span></div><div class="line">    SQTopicCellViewModel *newViewModel = [[SQTopicCellViewModel alloc] init];</div><div class="line">    newViewModel.topicModel = viewModel.topicModel;</div><div class="line"></div><div class="line">    <span class="comment">// 替换数据</span></div><div class="line">    [<span class="keyword">self</span>.dataArray replaceObjectAtIndex:indexPath.row withObject:newViewModel];</div><div class="line"></div><div class="line">    <span class="comment">// 局部刷新表格</span></div><div class="line">    [<span class="keyword">self</span>.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:<span class="built_in">UITableViewRowAnimationNone</span>];</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <ul>
 <li>TTTAttributedLabel链接点击实现</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// TTTAttributedLabel初始化</span></span><br><span class="line">_contentLabel = [[TTTAttributedLabel alloc] initWithFrame:<span class="built_in">CGRectZero</span>];</span><br><span class="line">_contentLabel.numberOfLines = <span class="number">0</span>;</span><br><span class="line">_contentLabel.textColor = [<span class="built_in">UIColor</span> blackColor];</span><br><span class="line">_contentLabel.font = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">14</span>];</span><br><span class="line">_contentLabel.linkAttributes = @&#123;<span class="built_in">NSForegroundColorAttributeName</span>: [<span class="built_in">UIColor</span> colorWithRed:<span class="number">0</span>/<span class="number">256.0</span> green:<span class="number">87</span>/<span class="number">256.0</span> blue:<span class="number">168</span>/<span class="number">256.0</span> alpha:<span class="number">1</span>]&#125;;</span><br><span class="line">_contentLabel.activeLinkAttributes = @&#123;<span class="built_in">NSForegroundColorAttributeName</span>: [<span class="built_in">UIColor</span> colorWithRed:<span class="number">140</span>/<span class="number">256.0</span> green:<span class="number">87</span>/<span class="number">256.0</span> blue:<span class="number">168</span>/<span class="number">256.0</span> alpha:<span class="number">1</span>]&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// TTTAttributedLabel 添加事件</span></span><br><span class="line">TTTAttributedLabelLink *fromLink = [<span class="keyword">self</span>.contentLabel addLinkToPhoneNumber:commentCellVM.commentModel.from withRange:<span class="built_in">NSMakeRange</span>(<span class="number">0</span>, commentCellVM.commentModel.from.length)];</span><br><span class="line"></span><br><span class="line">fromLink.linkTapBlock = ^(TTTAttributedLabel *label, TTTAttributedLabelLink *link)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.delegate &amp;&amp; [<span class="keyword">self</span>.delegate respondsToSelector:<span class="keyword">@selector</span>(cell:didUserInfoClicked:)]) &#123;</span><br><span class="line">        [<span class="keyword">self</span>.delegate cell:<span class="keyword">self</span> didUserInfoClicked:commentCellVM.commentModel.from];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">// TTTAttributedLabel初始化</span></div><div class="line">_contentLabel = [[TTTAttributedLabel alloc] initWithFrame:<span class="built_in">CGRectZero</span>];</div><div class="line">_contentLabel.numberOfLines = <span class="number">0</span>;</div><div class="line">_contentLabel.textColor = [<span class="built_in">UIColor</span> blackColor];</div><div class="line">_contentLabel.font = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">14</span>];</div><div class="line">_contentLabel.linkAttributes = @&#123;<span class="built_in">NSForegroundColorAttributeName</span>: [<span class="built_in">UIColor</span> colorWithRed:<span class="number">0</span>/<span class="number">256.0</span> green:<span class="number">87</span>/<span class="number">256.0</span> blue:<span class="number">168</span>/<span class="number">256.0</span> alpha:<span class="number">1</span>]&#125;;</div><div class="line">_contentLabel.activeLinkAttributes = @&#123;<span class="built_in">NSForegroundColorAttributeName</span>: [<span class="built_in">UIColor</span> colorWithRed:<span class="number">140</span>/<span class="number">256.0</span> green:<span class="number">87</span>/<span class="number">256.0</span> blue:<span class="number">168</span>/<span class="number">256.0</span> alpha:<span class="number">1</span>]&#125;;</div><div class="line"></div><div class="line"><span class="comment">// TTTAttributedLabel 添加事件</span></div><div class="line">TTTAttributedLabelLink *fromLink = [<span class="keyword">self</span>.contentLabel addLinkToPhoneNumber:commentCellVM.commentModel.from withRange:<span class="built_in">NSMakeRange</span>(<span class="number">0</span>, commentCellVM.commentModel.from.length)];</div><div class="line"></div><div class="line">fromLink.linkTapBlock = ^(TTTAttributedLabel *label, TTTAttributedLabelLink *link)</div><div class="line">&#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.delegate &amp;&amp; [<span class="keyword">self</span>.delegate respondsToSelector:<span class="keyword">@selector</span>(cell:didUserInfoClicked:)]) &#123;</div><div class="line">        [<span class="keyword">self</span>.delegate cell:<span class="keyword">self</span> didUserInfoClicked:commentCellVM.commentModel.from];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <ul>
 <li><p>cell事件传递实现</p>
 <blockquote>
@@ -495,91 +527,266 @@ tableview实现又分为自动布局和绝">
 <blockquote>
 <p>其中<code>评论用户信息点击</code>,<code>评论cell点击</code>采用的是代理嵌套代理的方式实现。应为这两个事件是在子tableview（评论taleview）的cell上，中间有个嵌套关系，暂时没有找到方法，可以减少这一层嵌套。个人认为，两层代理嵌套，是可接受的，并不会太混乱；，如有更好的方式，请在评论区回复。</p>
 </blockquote>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">SQTopicTableViewCellDelegate</span> &lt;<span class="title">NSObject</span>&gt;</span></span><br><span class="line"><span class="keyword">@optional</span></span><br><span class="line">- (<span class="keyword">void</span>)cell:(SQTopicTableViewCell *)cell didUserClicked:(<span class="built_in">NSString</span> *)username;</span><br><span class="line">- (<span class="keyword">void</span>)cell:(SQTopicTableViewCell *)cell didReplyClicked:(SQCommentModel *)commentModel;</span><br><span class="line">- (<span class="keyword">void</span>)cellToggleExpentContent:(SQTopicTableViewCell *)cell;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">SQTopicTableViewCellDelegate</span> &lt;<span class="title">NSObject</span>&gt;</span></div><div class="line"><span class="keyword">@optional</span></div><div class="line">- (<span class="keyword">void</span>)cell:(SQTopicTableViewCell *)cell didUserClicked:(<span class="built_in">NSString</span> *)username;</div><div class="line">- (<span class="keyword">void</span>)cell:(SQTopicTableViewCell *)cell didReplyClicked:(SQCommentModel *)commentModel;</div><div class="line">- (<span class="keyword">void</span>)cellToggleExpentContent:(SQTopicTableViewCell *)cell;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
 <h3 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h3><p><a href="https://github.com/suqiang/commentDemo" target="_blank" rel="external">github-commentDemo</a></p>
 
       
     </div>
-    
-  </div>
-  
-    
-    <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/09/14/ios-tableview-weixin-comment-md/">tableView实现微信朋友圈评论回复功能</a></p>
-        <p><span>文章作者:</span><a href="/" title="回到主页">阶前梧叶</a></p>
-        <p><span>发布时间:</span>2016-09-14, 18:43:17</p>
-        <p><span>最后更新:</span>2016-09-14, 18:43:17</p>
-        <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/09/14/ios-tableview-weixin-comment-md/" title="tableView实现微信朋友圈评论回复功能">http://suqianghotel.com/2016/09/14/ios-tableview-weixin-comment-md/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://suqianghotel.com/2016/09/14/ios-tableview-weixin-comment-md/　　作者: 阶前梧叶" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
-            <script> var clipboard = new Clipboard('.copy-path'); </script>
-        </p>
-        <p>
-            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
-        </p>
+
+    <div>
+      
+        
+
+      
     </div>
 
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS-tableView-评论回复/" rel="tag"># iOS tableView 评论回复</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/13/mac-mulit-git-account-config/" rel="next" title="Mac多个Git账户配置">
+                <i class="fa fa-chevron-left"></i> Mac多个Git账户配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/02/ios-xor-encrypt/" rel="prev" title="iOS异或(XOR)加密">
+                iOS异或(XOR)加密 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
 
 
-    <nav id="article-nav">
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/11/02/ios-xor-encrypt/">
-                    iOS异或(XOR)加密
-                </a>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.svg"
+               alt="阶前梧叶" />
+          <p class="site-author-name" itemprop="name">阶前梧叶</p>
+           
+              <p class="site-description motion-element" itemprop="description">记录分享所思、所想、所实现</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
             </div>
-        
-        
-            <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/09/13/mac-mulit-git-account-config/">
-                    Mac多个Git账户配置
-                </a>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              
             </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
         
-    </nav>
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#截图"><span class="nav-number">2.</span> <span class="nav-text">截图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#需求描述"><span class="nav-number">3.</span> <span class="nav-text">需求描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#技术分析"><span class="nav-number">4.</span> <span class="nav-text">技术分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#程序架构"><span class="nav-number">5.</span> <span class="nav-text">程序架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源码"><span class="nav-number">6.</span> <span class="nav-text">源码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阶前梧叶</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
 
   
-</article>
 
-    <div id="toc" class="toc-article">
-    <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#截图"><span class="toc-number">2.</span> <span class="toc-text">截图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#需求描述"><span class="toc-number">3.</span> <span class="toc-text">需求描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#技术分析"><span class="toc-number">4.</span> <span class="toc-text">技术分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#程序架构"><span class="toc-number">5.</span> <span class="toc-text">程序架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#源码"><span class="toc-number">6.</span> <span class="toc-text">源码</span></a></li></ol>
-</div>
-<style>
-    .left-col .switch-btn,
-    .left-col .switch-area {
-        display: none;
-    }
-</style>
-
-<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
-
-<script>
-    yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
 </script>
 
 
 
-    
-<div class="share">
-    
-        <div class="bdsharebuttonbox">
-            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
-            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
-            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
-            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
-            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
-            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
-            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
-        </div>
-        <script>
-            window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"tableView实现微信朋友圈评论回复功能　| 阶前梧叶　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-        </script>
-    
 
-    
-</div>
+
+
+
+
+
+  
 
 
 
@@ -587,121 +794,112 @@ tableview实现又分为自动布局和绝">
 
 
 
-    
-      <div class="duoshuo" id="comments">
-    <div id="comment-box" ></div>
-    <div class="ds-thread" data-thread-key="2016/09/14/ios-tableview-weixin-comment-md/" data-title="tableView实现微信朋友圈评论回复功能" data-url="http://suqianghotel.com/2016/09/14/ios-tableview-weixin-comment-md/"></div>
-    <script>
-        var duoshuoQuery = {short_name:"suqiang"};
-        var loadComment = function(){
-            var d = document, s = d.createElement('script');
-            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-            s.async = true; s.charset = 'UTF-8';
-            (d.head || d.body).appendChild(s);
-        }
-
-        
-    </script>
-    
-    <script> loadComment(); </script>
-
-</div>
-    
 
 
 
 
-    <div class="scroll" id="post-nav-button">
-        
-            <a href="/2016/11/02/ios-xor-encrypt/" title="上一篇: iOS异或(XOR)加密">
-                <i class="fa fa-angle-left"></i>
-            </a>
-        
 
-        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
 
-        
-            <a href="/2016/09/13/mac-mulit-git-account-config/" title="下一篇: Mac多个Git账户配置">
-                <i class="fa fa-angle-right"></i>
-            </a>
-        
-    </div>
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/11/02/ios-xor-encrypt/">iOS异或(XOR)加密</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/14/ios-tableview-weixin-comment-md/">tableView实现微信朋友圈评论回复功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/13/mac-mulit-git-account-config/">Mac多个Git账户配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/17/hexo笔记/">Hexo 简单配置</a></li></ul>
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
 
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
 
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
 
-
-    <script>
-        
-    </script>
-</div>
-      <footer id="footer">
-    <div class="outer">
-        <div id="footer-info">
-            <div class="footer-left">
-                <i class="fa fa-copyright"></i> 
-                2015-2016 阶前梧叶
-            </div>
-            <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.0">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
-            </div>
-        </div>
-        
-            <div class="visit">
-                
-                    <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" >本站到访数: 
-                            <span id="busuanzi_value_site_uv"></span>
-                        </span>
-                    </span>
-                
-                
-                    <span>, </span>
-                
-                
-                    <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit">本页阅读量: 
-                            <span id="busuanzi_value_page_pv"></span>
-                        </span>
-                    </span>
-                
-            </div>
-        
-    </div>
-</footer>
-    </div>
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
-    
-<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+  
 
-    <script>
-        $(document).ready(function() {
-            var iPad = window.navigator.userAgent.indexOf('iPad');
-            if (iPad > -1 || $(".left-col").css("display") === "none") {
-                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
-                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
-                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
-            }
-            else {
-                var backgroundnum = 5;
-                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
-                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
-            }
-        })
-    </script>
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
 
 
 
 
-<div class="scroll" id="scroll">
-    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
-</div>
-<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
-  </div>
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
 </body>
 </html>
