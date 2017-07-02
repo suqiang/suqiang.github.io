@@ -407,50 +407,32 @@
       
         
           
-            <p>源码见文末</p>
-<h2 id="异或简介"><a href="#异或简介" class="headerlink" title="异或简介"></a>异或简介</h2><ul>
-<li><code>异或</code>，二元运算;</li>
-<li>符号<code>^</code>;</li>
-<li>口诀：相同为0,不相同为1;  </li>
-<li>举例<ul>
-<li>10011101^10001010=00010111</li>
-</ul>
-</li>
-</ul>
-<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><ul>
-<li>密码加密(此场景在日常开发中使用较多,本文将着重介绍此应用场景)</li>
-<li>数据暂存</li>
-<li>嵌入式</li>
-</ul>
-<h2 id="异或加密原理"><a href="#异或加密原理" class="headerlink" title="异或加密原理"></a><code>异或加密</code>原理</h2><ul>
-<li>假设明文A, 密钥B, 密文C,</li>
-<li>通过<code>异或加密</code>过程为A ^ B = C, 得到密文C</li>
-<li>如果此时知道密文A和密钥B,那么通过<code>异或解密</code>过程为C ^ B = A, 重新得到明文A</li>
-<li><img src="http://o7obltx2h.bkt.clouddn.com/imagexor.png" alt="异或加密"></li>
-</ul>
-<h2 id="异或加密应用"><a href="#异或加密应用" class="headerlink" title="异或加密应用"></a><code>异或加密</code>应用</h2><ul>
-<li>企业由于数据具有保密性,需要对敏感数据进行加密。 数据存在的形式可能是客户端的缓存、内置资源文件、网络传输等，这些数据都有可能被用户，竞争对手，黑客截获的潜在风险；通过加密可以进行规避，异或加密是其中较为简单的一种实现方案。</li>
-<li>例如某公司App要内置一些核心资源配置文件，为防止用户窥探，采用了加密处理，先将方案分享如下：<ul>
-<li>后端生成配置文件时，用私钥对数据进行与运算处理，生成密文；客户端拿到密文，通过自动或手动打包的app中，app在运行时，采用相同的密钥、按照相同的算法进行异或运算，得到明文，进而使用。</li>
-<li>异或算法<ul>
-<li>假设 私钥<code>abcdefg</code>7位，将数据转换为<code>data</code>类型，获取所有字节；将字节每七位分别于私钥七位字符异或运算，一直循环到最后得到密文</li>
-<li>异或解密算法和加密算法一致，即通过这个算法运行一次是加密，再通过这个算法运行一次就是解密</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="iOS代码实现"><a href="#iOS代码实现" class="headerlink" title="iOS代码实现"></a>iOS代码实现</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 客户端内置私钥</span></div><div class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> <span class="keyword">const</span> *privateKey = <span class="string">@"ef37c9111210854f5986fc9ebb5548b2ae"</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NSData</span>(<span class="title">XOREncrypt</span>)</span></div><div class="line">- (<span class="built_in">NSData</span> *)xor_decrypt</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> xor_encrypt];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 加密</span></div><div class="line">- (<span class="built_in">NSData</span> *)xor_encrypt</div><div class="line">&#123;</div><div class="line">    <span class="comment">// 获取key的长度</span></div><div class="line">    <span class="built_in">NSInteger</span> length = privateKey.length;</div><div class="line"></div><div class="line">    <span class="comment">// 将OC字符串转换为C字符串</span></div><div class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *keys = [privateKey cStringUsingEncoding:<span class="built_in">NSASCIIStringEncoding</span>];</div><div class="line"></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> cKey[length];</div><div class="line"></div><div class="line">    memcpy(cKey, keys, length);</div><div class="line"></div><div class="line">    <span class="comment">// 数据初始化，空间未分配 配合使用 appendBytes</span></div><div class="line">    <span class="built_in">NSMutableData</span> *encryptData = [[<span class="built_in">NSMutableData</span> alloc] initWithCapacity:length];</div><div class="line"></div><div class="line">    <span class="comment">// 获取字节指针</span></div><div class="line">    <span class="keyword">const</span> Byte *point = <span class="keyword">self</span>.bytes;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">self</span>.length; i++) &#123;</div><div class="line">        <span class="keyword">int</span> l = i % length;                     <span class="comment">// 算出当前位置字节，要和密钥的异或运算的密钥字节</span></div><div class="line">        <span class="keyword">char</span> c = cKey[l];</div><div class="line">        Byte b = (Byte) ((point[i]) ^ c);       <span class="comment">// 异或运算</span></div><div class="line">        [encryptData appendBytes:&amp;b length:<span class="number">1</span>];  <span class="comment">// 追加字节</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> encryptData.copy;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-<h3 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> a = <span class="number">15</span>;</div><div class="line"><span class="keyword">int</span> b = <span class="number">20</span>;</div></pre></td></tr></table></figure>
-<p>不用第三个变量，交换两个变量的值？</p>
-<ul>
-<li>答案(面试装13用)</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> a = <span class="number">15</span>;</div><div class="line"><span class="keyword">int</span> b = <span class="number">20</span>;</div><div class="line"></div><div class="line">a = a ^ b;</div><div class="line">b = a ^ b;</div><div class="line">a = a ^ b;</div></pre></td></tr></table></figure>
-<hr>
-<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><p><a href="https://github.com/suqiang/iOSDemo/blob/master/iOSDemo/Classes/Category/Encrypt/XOR/SQHXOREncryptUtil.m" target="_blank" rel="external">XORDemo源码</a></p>
+          源码见文末
+异或简介
+异或，二元运算;
+符号^;
+口诀：相同为0,不相同为1;  
+举例
+10011101^10001010=00010111
 
-          
+
+
+应用场景
+密码加密(此场景在日常开发中使用较多,本文将着重介绍此应用场景)
+数据暂存
+嵌入式
+
+异或加密原理
+假设明文A, 密钥B, 密文C,
+通过异
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/11/02/ios-xor-encrypt/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -592,145 +574,16 @@
 
       
         
-          
-            <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><blockquote>
+          <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><blockquote>
 <p>最近朋友问了一个微信朋友圈评论列表的实现，加之以前也做过类似的功能，这两天抽时间重新完善和设计了一下，以此文作为总结和大家分享，欢迎大家批评指教<br>源码见文末</p>
 </blockquote>
-<h3 id="截图"><a href="#截图" class="headerlink" title="截图"></a>截图</h3><p><img src="http://o7obltx2h.bkt.clouddn.com/image/blog/weixin_fed.gif" alt="微信Fed"></p>
-<h3 id="需求描述"><a href="#需求描述" class="headerlink" title="需求描述"></a>需求描述</h3><ul>
-<li>列表页展现消息流</li>
-<li>消息内容支持<code>全文</code>和<code>收起</code>功能</li>
-<li>消息支持评论，评论条数<code>不限制</code></li>
-<li>用户信息<code>支持点击</code>进入用户中心</li>
-</ul>
-<h3 id="技术分析"><a href="#技术分析" class="headerlink" title="技术分析"></a>技术分析</h3><ul>
-<li>列表页展现消息流</li>
-</ul>
-<blockquote>
-<ul>
-<li>消息流一般采用tableview实现</li>
-<li>tableview实现又分为<code>自动布局</code>和<code>绝对布局</code>（即Frame布局）。</li>
-<li><code>自动布局</code>可以采用<a href="https://github.com/forkingdog/UITableView-FDTemplateLayoutCell" target="_blank" rel="external">UITableView-FDTemplateLayoutCell</a>分方案实施。这种方案可以自动计算cell高度，但笔者认为一下几种情况，不要使用<code>自动布局</code>。对于简单页面的屏幕适配，当然首推<code>自动布局</code>（masonry）<ul>
-<li>cell交互要求较高</li>
-<li>cell布局复杂，view元素较多, 层级深</li>
-<li>对性能要求较高</li>
-</ul>
-</li>
-<li><code>Frame布局</code><ul>
-<li>缺点：计算复杂（相对于<code>masonry</code>自动布局）</li>
-<li>优点： 性能好，可控性强，易动画，扩展维护成本低</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>两种布局方式不是本文的重点，这里不在多说，笔者偏好是Frame布局，本文案例也将采用这种方式</p>
-</blockquote>
-</blockquote>
-<ul>
-<li>消息内容支持<code>全文</code>和<code>收起</code>功能<ul>
-<li>需要计算文字行数，判断两种方式</li>
-</ul>
-</li>
-<li>消息支持评论，评论条数<code>不限制</code><ul>
-<li>对于一般社区类帖子评论，都会有个评论列表页，在原帖下方最多显示3条评论，然后查看更多，直接跳转到评论列表页；这种情况不用考虑性能和内存问题，直接用三个Label实现即可。</li>
-<li>对于消息评论不限条数，那么就要好好设计了，笔者这里采用的是cell里面放tableView的方式来承载无限评论条数</li>
-</ul>
-</li>
-<li>用户信息<code>支持点击</code>进入用户中心<ul>
-<li>富文本链接支持点击，这里采用了一个轻量级的第三方框架<a href="https://github.com/TTTAttributedLabel/TTTAttributedLabel" target="_blank" rel="external">TTTAttributedLabel</a></li>
-<li>如果要实现较为复杂的富文本可以采用<a href="https://github.com/ibireme/YYKit" target="_blank" rel="external">YYKit</a>或<a href="https://github.com/12207480/TYAttributedLabel" target="_blank" rel="external">TYAttributedLabel</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="程序架构"><a href="#程序架构" class="headerlink" title="程序架构"></a>程序架构</h3><p><strong><em>目录结构</em></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">|____Controller</div><div class="line">| |____SQTopicTableViewController.h</div><div class="line">| |____SQTopicTableViewController.m</div><div class="line">| |____SQUserCenterViewController.h</div><div class="line">| |____SQUserCenterViewController.m</div><div class="line">|____Model</div><div class="line">| |____SQCommentModel.h</div><div class="line">| |____SQCommentModel.m</div><div class="line">| |____SQTopicModel.h</div><div class="line">| |____SQTopicModel.m</div><div class="line">|____View</div><div class="line">| |____SQCommentTableViewCell.h</div><div class="line">| |____SQCommentTableViewCell.m</div><div class="line">| |____SQTopicTableViewCell.h</div><div class="line">| |____SQTopicTableViewCell.m</div><div class="line">|____ViewModel</div><div class="line">| |____SQCommentCellViewModel.h</div><div class="line">| |____SQCommentCellViewModel.m</div><div class="line">| |____SQTopicCellViewModel.h</div><div class="line">| |____SQTopicCellViewModel.m</div><div class="line">|____Library</div><div class="line">| |____TTTAttributedLabel</div><div class="line">| | |____TTTAttributedLabel.h</div><div class="line">| | |____TTTAttributedLabel.m</div></pre></td></tr></table></figure>
-<p>项目采用的是MVVM的分层结构<br><img src="http://o7obltx2h.bkt.clouddn.com/image/blog/weixin_mvvm.png" alt="MVVM"></p>
-<ul>
-<li>项目的ViewModel的作用</li>
-</ul>
-<blockquote>
-<ul>
-<li>实际项目中我们从服务器获取的数据，转换为模型（Model）后，对应的数据有些不能直接显示在视图（View）上，需要二次处理。  </li>
-<li>那么处理放在哪里里好？<blockquote>
-<ul>
-<li>笔者在一些项目里，直接把这些数据格式化直接放在了Model里，有的是在set/get方法直接格式化数据，有的是增加辅助属性，这就是传说中的<code>胖模型</code>吧.</li>
-<li>后果是模型复用性降低;因为相同的模型，相同字段，在不同场景要被格式化的样式不一样。增加的辅助字段，越来越多，有时自己都回忆不起来这个辅助字段的实际意义。想一想还是保持模型的「纯真」吧，将复杂的数据处理，交给各自View对应的ViewModel;</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-</blockquote>
-<ul>
-<li>tableView结合viewModel的使用</li>
-</ul>
-<blockquote>
-<p>tableviewcell高度计算，是tableView使用以及优化的重点对象，最好的方式莫过于高度缓存。但如何计算，如何缓存，如何使用的？笔者分享一下此项目采用的方案：</p>
-</blockquote>
-<ul>
-<li>ViewModel模型，持有Model，并开放cell中各个子view布局属性，以及部分格式化后的模型字段,以及<code>cellHeight</code>缓存cell高度</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">SQTopicCellViewModel</span> : <span class="title">NSObject</span></span></div><div class="line"><span class="comment">// 持有原始数据模型</span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) SQTopicModel *topicModel;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSArray</span> *commentCellViewModels;</div><div class="line"><span class="comment">// cell 各个子元素布局属性</span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGRect</span> iconF;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGRect</span> nameLabelF;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGRect</span> contentF;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGRect</span> toggoleButtonF;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGRect</span> tableviewF;</div><div class="line"><span class="comment">// 缓存cell高度</span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGFloat</span> cellHeight;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-<ul>
-<li>重新ViewModel的set模型方法（即项目的<code>setTopicModel</code>方法），根据数据计算cell各个资源的布局，以及格式化数据</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setTopicModel:(SQTopicModel *)topicModel</div><div class="line">&#123;</div><div class="line">    _topicModel = topicModel;</div><div class="line"></div><div class="line">    <span class="built_in">CGFloat</span> margin = <span class="number">15</span>;</div><div class="line">    <span class="built_in">CGFloat</span> conentW = [<span class="built_in">UIScreen</span> mainScreen].bounds.size.width - <span class="number">2</span> * margin;</div><div class="line"></div><div class="line">    <span class="built_in">CGFloat</span> iconX = margin;</div><div class="line">    <span class="built_in">CGFloat</span> iconY = margin;</div><div class="line">    <span class="built_in">CGFloat</span> iconWH = <span class="number">50</span>;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="built_in">CGFloat</span> nameLabelX = <span class="built_in">CGRectGetMaxX</span>(<span class="keyword">self</span>.iconF) + margin;</div><div class="line">    <span class="built_in">CGFloat</span> nameLabelW = <span class="number">250</span>;</div><div class="line">    <span class="built_in">CGFloat</span> nameLabelH = <span class="number">20</span>;</div><div class="line"></div><div class="line">    <span class="built_in">CGFloat</span> contentLabelX = nameLabelX;</div><div class="line">    <span class="built_in">CGFloat</span> contentLabelW = conentW - margin - iconWH;</div><div class="line">    <span class="built_in">CGFloat</span> contentLabelH = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="built_in">UIFont</span> *contentLabelFont = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">15</span>];</div><div class="line">    contentLabelH = [topicModel.content boundingRectWithSize:<span class="built_in">CGSizeMake</span>(contentLabelW, MAXFLOAT) options:<span class="built_in">NSStringDrawingUsesLineFragmentOrigin</span> attributes:@&#123;<span class="built_in">NSFontAttributeName</span>:contentLabelFont&#125; context:<span class="literal">nil</span>].size.height;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> lineNum = contentLabelH / contentLabelFont.lineHeight;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="built_in">CGFloat</span> toggoleButtonX = contentLabelX;</div><div class="line">    <span class="built_in">CGFloat</span> toggoleButtonW = <span class="number">32</span>;</div><div class="line">    <span class="built_in">CGFloat</span> toggoleButtonH = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (lineNum &gt; <span class="number">5</span>) &#123;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (topicModel.isExpanded == <span class="literal">NO</span>) &#123;</div><div class="line">            contentLabelH = contentLabelFont.lineHeight * <span class="number">5</span>;</div><div class="line">        &#125;</div><div class="line">        toggoleButtonH = <span class="number">20</span>;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 计算cell高度，坐标Y值</span></div><div class="line">    。。。</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>cell持有自身ViewModel模型, 在tableView的数据源给cell注入viewModel时，确定cell各元素布局以及数据</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setTopicViewModel:(SQTopicCellViewModel *)topicViewModel</div><div class="line">&#123;</div><div class="line">    _topicViewModel = topicViewModel;</div><div class="line"></div><div class="line">    <span class="keyword">self</span>.icon.image = [<span class="built_in">UIImage</span> imageNamed:topicViewModel.topicModel.icon];</div><div class="line">    <span class="keyword">self</span>.icon.frame = topicViewModel.iconF;</div><div class="line"></div><div class="line">    <span class="keyword">self</span>.nameLabel.frame = topicViewModel.nameLabelF;</div><div class="line">    <span class="keyword">self</span>.nameLabel.text = topicViewModel.topicModel.userame;</div><div class="line"></div><div class="line">    。。。</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>viewModel高度（cellHeight）计算，某些cell的子元素，根据数据不一定显示，需要单独判端。笔者开始采用的是在计算完成一个元素后，就判断是否显示，并确定<code>y</code>值。但是如果后面元素的显示如果依赖于上一元素的位置，甚至是嵌套依赖，那么情况就会变得过于复杂，笔者把这部分放到了最后，只根据高度是否大于0来判读，各元素是否显示，在计算是通过赋值自身高度是否为零即可</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setTopicModel:(SQTopicModel *)topicModel</div><div class="line">&#123;</div><div class="line">    _topicModel = topicModel;</div><div class="line">    <span class="comment">// 计算各个子元素的大小</span></div><div class="line">    。。。</div><div class="line"></div><div class="line">    <span class="comment">// 计算cell高度，各元素坐标Y值</span></div><div class="line">    <span class="keyword">if</span> (nameLabelH &gt; <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">self</span>.cellHeight += margin;</div><div class="line">        <span class="keyword">self</span>.nameLabelF = <span class="built_in">CGRectMake</span>(nameLabelX, <span class="keyword">self</span>.cellHeight, nameLabelW, nameLabelH);</div><div class="line">        <span class="keyword">self</span>.cellHeight += nameLabelH;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (contentLabelH &gt; <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">self</span>.cellHeight += margin * <span class="number">0.5</span>;</div><div class="line">        <span class="keyword">self</span>.contentF = <span class="built_in">CGRectMake</span>(contentLabelX, <span class="keyword">self</span>.cellHeight, contentLabelW, contentLabelH);</div><div class="line">        <span class="keyword">self</span>.cellHeight += contentLabelH;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (toggoleButtonH &gt; <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">self</span>.cellHeight += margin * <span class="number">0.5</span>;</div><div class="line">        <span class="keyword">self</span>.toggoleButtonF = <span class="built_in">CGRectMake</span>(toggoleButtonX,  <span class="keyword">self</span>.cellHeight, toggoleButtonW, toggoleButtonH);</div><div class="line">        <span class="keyword">self</span>.cellHeight += toggoleButtonH;</div><div class="line">    &#125;</div><div class="line">    。。。。</div><div class="line">    <span class="keyword">self</span>.cellHeight += margin * <span class="number">0.5</span>;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>cell评论区实现<blockquote>
-<p>cell持有一个tableview（专门给评论列表显示）， 把代理、数据源给自己。每一条评论也设计成tableviewcell, 有着自己的viewModel(SQCommentCellViewModel),实现逻辑上述相似，不在重复</p>
-</blockquote>
-</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">SQTopicTableViewCell</span>()&lt;<span class="title">UITableViewDelegate</span>, <span class="title">UITableViewDataSource</span>, <span class="title">SQCommentTableViewCellDelegate</span>&gt;</span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIImageView</span> *icon;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) TTTAttributedLabel *nameLabel;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) TTTAttributedLabel *topicLabel;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UITableView</span> *commentTableView;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIButton</span> *toggoleButton;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">SQTopicTableViewCell</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">instancetype</span>)initWithStyle:(<span class="built_in">UITableViewCellStyle</span>)style reuseIdentifier:(<span class="built_in">NSString</span> *)reuseIdentifier</div><div class="line">&#123;</div><div class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> initWithStyle:style reuseIdentifier:reuseIdentifier];</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</div><div class="line">        <span class="keyword">self</span>.selectionStyle = <span class="built_in">UITableViewCellSelectionStyleNone</span>;</div><div class="line">        <span class="comment">// 其他元素</span></div><div class="line">        。。。</div><div class="line"></div><div class="line">        <span class="comment">// tableview</span></div><div class="line">        _commentTableView = [[<span class="built_in">UITableView</span> alloc] initWithFrame:<span class="built_in">CGRectZero</span>];</div><div class="line">        _commentTableView.delegate = <span class="keyword">self</span>;</div><div class="line">        _commentTableView.dataSource = <span class="keyword">self</span>;</div><div class="line">        _commentTableView.backgroundColor = [<span class="built_in">UIColor</span> colorWithRed:<span class="number">236</span>/<span class="number">256.0</span> green:<span class="number">236</span>/<span class="number">256.0</span> blue:<span class="number">236</span>/<span class="number">256.0</span> alpha:<span class="number">1</span>];</div><div class="line">        _commentTableView.bounces = <span class="literal">NO</span>;</div><div class="line">        _commentTableView.separatorStyle = <span class="built_in">UITableViewCellSeparatorStyleNone</span>;</div><div class="line">        [_commentTableView registerClass:[SQCommentTableViewCell <span class="keyword">class</span>] forCellReuseIdentifier:<span class="string">@"comment"</span>];</div><div class="line">        [<span class="keyword">self</span>.contentView addSubview:_commentTableView];</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)setTopicViewModel:(SQTopicCellViewModel *)topicViewModel</div><div class="line">&#123;</div><div class="line">    _topicViewModel = topicViewModel;</div><div class="line"></div><div class="line">    <span class="comment">// 其他布局数据设值</span></div><div class="line">    。。。。</div><div class="line"></div><div class="line">    <span class="comment">//tablevew布局，加载数据</span></div><div class="line">    <span class="keyword">self</span>.commentTableView.frame = topicViewModel.tableviewF; <span class="comment">// 这里的tableviewF的计算在上层ViewModel中（即____SQTopicTableViewCell）</span></div><div class="line">    [<span class="keyword">self</span>.commentTableView reloadData];  <span class="comment">// 数据源初始化以及组装也在SQTopicCellViewModel中commentCellViewModels</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="built_in">CGFloat</span>)tableView:(<span class="built_in">UITableView</span> *)tableView heightForRowAtIndexPath:(<span class="keyword">nonnull</span> <span class="built_in">NSIndexPath</span> *)indexPath</div><div class="line">&#123;</div><div class="line">    SQCommentCellViewModel *topicViewModel = <span class="keyword">self</span>.topicViewModel.commentCellViewModels[indexPath.row];</div><div class="line"></div><div class="line">    <span class="keyword">return</span> topicViewModel.cellHeight;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="built_in">NSInteger</span>)numberOfSectionsInTableView:(<span class="built_in">UITableView</span> *)tableView</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="built_in">NSInteger</span>)tableView:(<span class="built_in">UITableView</span> *)tableView numberOfRowsInSection:(<span class="built_in">NSInteger</span>)section &#123;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="keyword">self</span>.topicViewModel.commentCellViewModels.count;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath &#123;</div><div class="line">    SQCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<span class="string">@"comment"</span>];</div><div class="line">    cell.commentCellVM = <span class="keyword">self</span>.topicViewModel.commentCellViewModels[indexPath.row];</div><div class="line">    cell.delegate = <span class="keyword">self</span>;</div><div class="line">    <span class="keyword">return</span> cell;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-<p><em>评论的tableview高度是如何计算的?</em><br>在<code>SQTopicCellViewModel</code>中持有commentCellViewModels数组， 在将评论原始数据转化我ViewModel中时，能确定各个评论cell的高度，数组中所有高度加起来，就是评论tableview的高度</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setTopicModel:(SQTopicModel *)topicModel</div><div class="line">&#123;</div><div class="line">    _topicModel = topicModel;</div><div class="line"></div><div class="line">    。。。</div><div class="line"></div><div class="line">    <span class="built_in">CGFloat</span> tableViewX = contentLabelX;</div><div class="line">    <span class="built_in">CGFloat</span> tableViewW = [<span class="built_in">UIScreen</span> mainScreen].bounds.size.width - margin - tableViewX;</div><div class="line">    <span class="built_in">CGFloat</span> tableViewH = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="built_in">NSArray</span> *commentModels = topicModel.commentModels;</div><div class="line"></div><div class="line">    <span class="built_in">NSMutableArray</span> *mutableVMs = [<span class="built_in">NSMutableArray</span> array];</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (commentModels.count &gt; <span class="number">0</span>) &#123;</div><div class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; commentModels.count; i++) &#123;</div><div class="line">           SQCommentCellViewModel *commmentVM = [[SQCommentCellViewModel alloc] init];</div><div class="line">           commmentVM.maxW = tableViewW;        <span class="comment">// 先要给出宽度，方便评论cell根据文字计算出自身高度</span></div><div class="line">           commmentVM.commentModel = commentModels[i];</div><div class="line"></div><div class="line">           tableViewH += commmentVM.cellHeight; <span class="comment">// 所有高度加起来</span></div><div class="line"></div><div class="line">           [mutableVMs addObject:commmentVM];   </div><div class="line">       &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">self</span>.commentCellViewModels = mutableVMs.copy;<span class="comment">// 构造数据源</span></div><div class="line"></div><div class="line">    。。。</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>展开全文实现<blockquote>
-<ul>
-<li>正文高度大于5行，显示全文按钮；点击全文按钮，展开全文，按钮变为收起；点击收起，折叠内容</li>
-<li>文字计算判断行数，笔者这里直接更具字体的lineHeight计算的，如果是AttribedString，带行距时，可能计算不准，这里没找到更好的方式，如有更好的方式，欢迎再评论区回复。</li>
-<li>在模型中增加了一个辅助属性isExpanded用来标识当前数据是否被展开。目的是防止：1.cell重用，导致布局混乱。2. 展开的数据在滑动后，被关闭</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">。。。</div><div class="line"></div><div class="line"><span class="built_in">CGFloat</span> contentLabelX = nameLabelX;</div><div class="line"><span class="built_in">CGFloat</span> contentLabelW = conentW - margin - iconWH;</div><div class="line"><span class="built_in">CGFloat</span> contentLabelH = <span class="number">0</span>;</div><div class="line"></div><div class="line"><span class="built_in">UIFont</span> *contentLabelFont = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">15</span>];</div><div class="line">contentLabelH = [topicModel.content boundingRectWithSize:<span class="built_in">CGSizeMake</span>(contentLabelW, MAXFLOAT) options:<span class="built_in">NSStringDrawingUsesLineFragmentOrigin</span> attributes:@&#123;<span class="built_in">NSFontAttributeName</span>:contentLabelFont&#125; context:<span class="literal">nil</span>].size.height;</div><div class="line"></div><div class="line"><span class="keyword">int</span> lineNum = contentLabelH / contentLabelFont.lineHeight;</div><div class="line"></div><div class="line"><span class="built_in">CGFloat</span> toggoleButtonX = contentLabelX;</div><div class="line"><span class="built_in">CGFloat</span> toggoleButtonW = <span class="number">32</span>;</div><div class="line"><span class="built_in">CGFloat</span> toggoleButtonH = <span class="number">0</span>;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (lineNum &gt; <span class="number">5</span>) &#123;</div><div class="line">    <span class="keyword">if</span> (topicModel.isExpanded == <span class="literal">NO</span>) &#123;</div><div class="line">        contentLabelH = contentLabelFont.lineHeight * <span class="number">5</span>;</div><div class="line">    &#125;</div><div class="line">    toggoleButtonH = <span class="number">20</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">。。。</div></pre></td></tr></table></figure>
-<blockquote>
-<p>将 <code>收起/全文</code>事件代理给vc</p>
-</blockquote>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)cellToggleExpentContent:(SQTopicTableViewCell *)cell</div><div class="line">&#123;</div><div class="line">    <span class="comment">// 查询位置</span></div><div class="line">    <span class="built_in">NSIndexPath</span> *indexPath = [<span class="keyword">self</span>.tableView indexPathForCell:cell];</div><div class="line"></div><div class="line">    SQTopicCellViewModel *viewModel = <span class="keyword">self</span>.dataArray[indexPath.row];</div><div class="line">    <span class="comment">// 修改展开状态</span></div><div class="line">    viewModel.topicModel.expanded = !viewModel.topicModel.isExpanded;</div><div class="line"></div><div class="line">    <span class="comment">// 更新布局</span></div><div class="line">    SQTopicCellViewModel *newViewModel = [[SQTopicCellViewModel alloc] init];</div><div class="line">    newViewModel.topicModel = viewModel.topicModel;</div><div class="line"></div><div class="line">    <span class="comment">// 替换数据</span></div><div class="line">    [<span class="keyword">self</span>.dataArray replaceObjectAtIndex:indexPath.row withObject:newViewModel];</div><div class="line"></div><div class="line">    <span class="comment">// 局部刷新表格</span></div><div class="line">    [<span class="keyword">self</span>.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:<span class="built_in">UITableViewRowAnimationNone</span>];</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>TTTAttributedLabel链接点击实现</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">// TTTAttributedLabel初始化</span></div><div class="line">_contentLabel = [[TTTAttributedLabel alloc] initWithFrame:<span class="built_in">CGRectZero</span>];</div><div class="line">_contentLabel.numberOfLines = <span class="number">0</span>;</div><div class="line">_contentLabel.textColor = [<span class="built_in">UIColor</span> blackColor];</div><div class="line">_contentLabel.font = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">14</span>];</div><div class="line">_contentLabel.linkAttributes = @&#123;<span class="built_in">NSForegroundColorAttributeName</span>: [<span class="built_in">UIColor</span> colorWithRed:<span class="number">0</span>/<span class="number">256.0</span> green:<span class="number">87</span>/<span class="number">256.0</span> blue:<span class="number">168</span>/<span class="number">256.0</span> alpha:<span class="number">1</span>]&#125;;</div><div class="line">_contentLabel.activeLinkAttributes = @&#123;<span class="built_in">NSForegroundColorAttributeName</span>: [<span class="built_in">UIColor</span> colorWithRed:<span class="number">140</span>/<span class="number">256.0</span> green:<span class="number">87</span>/<span class="number">256.0</span> blue:<span class="number">168</span>/<span class="number">256.0</span> alpha:<span class="number">1</span>]&#125;;</div><div class="line"></div><div class="line"><span class="comment">// TTTAttributedLabel 添加事件</span></div><div class="line">TTTAttributedLabelLink *fromLink = [<span class="keyword">self</span>.contentLabel addLinkToPhoneNumber:commentCellVM.commentModel.from withRange:<span class="built_in">NSMakeRange</span>(<span class="number">0</span>, commentCellVM.commentModel.from.length)];</div><div class="line"></div><div class="line">fromLink.linkTapBlock = ^(TTTAttributedLabel *label, TTTAttributedLabelLink *link)</div><div class="line">&#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.delegate &amp;&amp; [<span class="keyword">self</span>.delegate respondsToSelector:<span class="keyword">@selector</span>(cell:didUserInfoClicked:)]) &#123;</div><div class="line">        [<span class="keyword">self</span>.delegate cell:<span class="keyword">self</span> didUserInfoClicked:commentCellVM.commentModel.from];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<ul>
-<li><p>cell事件传递实现</p>
-<blockquote>
-<p> 事件传递三种方式<code>delegate</code>, <code>notification</code>, <code>block</code>。笔者项目采用的是代理<code>delegate</code>，将所有事件代理给viewcontroller</p>
-</blockquote>
-<p><strong>代理的事件</strong></p>
-<ul>
-<li>主帖用户信息点击</li>
-<li>展开全文点击</li>
-<li>评论用户信息点击</li>
-<li>评论cell点击</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>其中<code>评论用户信息点击</code>,<code>评论cell点击</code>采用的是代理嵌套代理的方式实现。应为这两个事件是在子tableview（评论taleview）的cell上，中间有个嵌套关系，暂时没有找到方法，可以减少这一层嵌套。个人认为，两层代理嵌套，是可接受的，并不会太混乱；，如有更好的方式，请在评论区回复。</p>
-</blockquote>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">SQTopicTableViewCellDelegate</span> &lt;<span class="title">NSObject</span>&gt;</span></div><div class="line"><span class="keyword">@optional</span></div><div class="line">- (<span class="keyword">void</span>)cell:(SQTopicTableViewCell *)cell didUserClicked:(<span class="built_in">NSString</span> *)username;</div><div class="line">- (<span class="keyword">void</span>)cell:(SQTopicTableViewCell *)cell didReplyClicked:(SQCommentModel *)commentModel;</div><div class="line">- (<span class="keyword">void</span>)cellToggleExpentContent:(SQTopicTableViewCell *)cell;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-<h3 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h3><p><a href="https://github.com/suqiang/commentDemo" target="_blank" rel="external">github-commentDemo</a></p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/09/14/ios-tableview-weixin-comment-md/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -873,74 +726,16 @@
       
         
           
-            <h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><blockquote>
-<p>代码管理工具从流行的CVS,到SVN，到如今的Git, 尤其是Github的存在，加之git在代码管理的种种优势，git已经被越来越多的程序员喜爱。在日常开发中，我们可能面临着这样的尴尬：公司本身有git服务器，管理自己的代码。爱折腾的程序员，可在各大第三方代码管理平台，<code>github</code>, <code>coding.net</code>, <code>码云</code>，也有着自己的账号,对于github,可能也有两个账号；这是就需要配置多个SSH, 为了方便在一台电脑上对多个git仓库提交代码，现在将其总结如下</p>
-</blockquote>
-<h4 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h4><blockquote>
-<p>SSH key 可以让你在你的电脑和 Git 服务器之间建立安全的加密连接。一般你的ssh key存储在 这个目录下<code>/Users/{username}/.ssh</code></p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd /Users/&#123;accountname&#125;/.ssh</div></pre></td></tr></table></figure>
-<p>查看.ssh目录会有这样几个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">-rw-r--r--@ 1 &#123;username&#125;  staff   280B  8 30 15:12 config</div><div class="line">-rw-------  1 &#123;username&#125;  staff   3.2K  8 29 17:42 id_rsa</div><div class="line">-rw-r--r--  1 &#123;username&#125;  staff   748B  8 29 17:42 id_rsa.pub</div><div class="line">-rw-------  1 &#123;username&#125;  staff   3.2K  8 29 14:31 id_rsa_github</div><div class="line">-rw-r--r--  1 &#123;username&#125;  staff   748B  8 29 14:31 id_rsa_github.pub</div><div class="line">-rw-------  1 &#123;username&#125;  staff   1.6K  8 30 15:32 id_rsa_gitlab</div><div class="line">-rw-r--r--  1 &#123;username&#125;  staff   397B  8 30 15:32 id_rsa_gitlab.pub</div><div class="line">-rw-r--r--@ 1 &#123;username&#125;  staff   1.5K  9  2 10:06 known_hosts</div></pre></td></tr></table></figure></p>
-<p>如果你的目录下，没有你的目录下没有这些文件，没关系，下面将详细讲解这些文件的作用，以及如何生成<br>由于笔者已经配置过自己github和公司gitlab，所以会比较多，这里不必在意，现在我就<code>码云</code>为例，说明详细配置</p>
-<ol>
-<li>生成 SSH key</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa -C &quot;xxx@xx.com&quot;</div></pre></td></tr></table></figure>
-<ol>
-<li>输入上述命令，点击回车后，会出现以下提示</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Generating public/private rsa key pair.</div><div class="line">Enter file in which to save the key (/Users/&#123;username&#125;/.ssh/id_rsa):</div></pre></td></tr></table></figure>
-<p>这里是提示你生成的ssh key 的存储路径和名称；如果你是简单的配置一个账号，直接回车，自动取默认路径和名称。如何你是为多个git账号配置私钥/公钥，你需要自己指定路径和名称，笔者用的是<code>id_rsa_oschina</code>,名称可自己定义，具体如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Generating public/private rsa key pair.  </div><div class="line">Enter file in which to save the key (/Users/&#123;username&#125;/.ssh/id_rsa): /Users/&#123;username&#125;/.ssh/id_rsa_oschina</div></pre></td></tr></table></figure>
-<p>继续回车<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Enter passphrase (empty for no passphrase):</div><div class="line">Enter same passphrase again:</div></pre></td></tr></table></figure></p>
-<p>这里取默认值<code>空</code>,回车即可，最后出现如下图的回显，就说明你配置成功了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">Your identification has been saved in /Users/&#123;username&#125;/.ssh/id_rsa_oschina.</div><div class="line">Your public key has been saved in /Users/&#123;username&#125;/.ssh/id_rsa_oschina.pub.</div><div class="line">The key fingerprint is:</div><div class="line">SHA256:lEmncZqtuXuHgZ4XtkVMkazLaTC5XgN0VLjYi3T8Fk8 xxx@xxx.com</div><div class="line">The key s randomart image is:</div><div class="line">+---[RSA 2048]----+</div><div class="line">|        o o..=+o |</div><div class="line">|       . @. + o X|</div><div class="line">|        B..B o   |</div><div class="line">|       . oB B . E|</div><div class="line">|        So X = + |</div><div class="line">|        ..* X o .|</div><div class="line">|       ..+ O o   |</div><div class="line">|        o.* .    |</div><div class="line">|        .o .     |</div><div class="line">+----[SHA256]-----+</div></pre></td></tr></table></figure></p>
-<ol>
-<li>将生成的公钥拷贝到剪贴板上，到git管理页面贴入即可</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pbcopy &lt; ~/.ssh/id_rsa_oschina.pub</div></pre></td></tr></table></figure>
-<p>其中<code>id_rsa_oschina</code>.pub, 就是你刚才输入的名称<br>oschina配置：<br><img src="http://o7obltx2h.bkt.clouddn.com/image/blog/ssh-oschina-config.png" alt="oschina图片"></p>
-<ol>
-<li>测试连接是否成功</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -T git@git.oschina.net</div></pre></td></tr></table></figure>
-<p>若返回<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Welcome to Git@OSC, yourname!</div></pre></td></tr></table></figure></p>
-<p>则证明添加成功。  </p>
-<p>若返回<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">The authenticity of host &apos;git.oschina.net (116.211.167.152)&apos; can&apos;t be established.</div><div class="line">ECDSA key fingerprint is SHA256:FQGC9Kn/eye1W8icdBgrQp+KkGYoFgbVr17bmjey0Wc.</div><div class="line">Are you sure you want to continue connecting (yes/no)? yes</div><div class="line">Warning: Permanently added &apos;git.oschina.net,116.211.167.152&apos; (ECDSA) to the list of known hosts.</div><div class="line">Permission denied (publickey).</div></pre></td></tr></table></figure></p>
-<p>则未成功，执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-add ~/.ssh/id_rsa_oschina</div></pre></td></tr></table></figure></p>
-<p>如果ssh-add 不成功，可以直接进入第5步<br>如果成功再次重复执行第四步  </p>
-<ol>
-<li>至此是否已经配置完成，答案<code>否</code></li>
-</ol>
-<blockquote>
-<p>如果你在github等上面有两个账号，可能就会导致git提交失败，那么这里就需要配置<code>~/.ssh/config</code>这个文件</p>
-</blockquote>
-<p>打开config文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">open ~/.ssh/config</div></pre></td></tr></table></figure></p>
-<p>在文件中添加如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#oschina</div><div class="line">Host oschina  (名称自定义)</div><div class="line">  HostName git.oschina.net  (服务器地址)</div><div class="line">  user git   （`git`@git.oschina.net 与 这里`git`名称是一致的，也可自定义，但不建议修改）</div><div class="line">  IdentityFile ~/.ssh/id_rsa_oschina (密钥存储路径)</div></pre></td></tr></table></figure></p>
-<h4 id="QA"><a href="#QA" class="headerlink" title="QA"></a>QA</h4><p>Q: 按照上述步骤执行了，仍然<code>Permission denied (publickey)</code></p>
-<blockquote>
-<p>试如下方案：</p>
-<ol>
-<li>清空<code>~/.ssh/known_hosts</code>文件</li>
-<li>执行<code>ssh-add -D</code>（删除所有）, 再次执行<code>ssh-add -A</code>（添加所有）</li>
-</ol>
-</blockquote>
-<p>Q: 此次配置成功后，待下次重新启动电脑后，git提交又提示<code>Permission denied (publickey)</code></p>
-<blockquote>
-<ul>
-<li>每次重新执行<code>ssh-add -A</code></li>
-<li>每次重新执行嫌麻烦 ,<code>ssh-add -A -K</code>,添加到钥匙串内，这样下次如果没有知道密钥，那么则会自动取钥匙中存取的密钥</li>
-</ul>
-</blockquote>
-<p>Q: 报错如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">remote: Permission to username1/xxxx.git denied to username2.</div><div class="line">fatal: unable to access &apos;https://github.com/username1/xxxx.git/&apos;: The requested URL returned error: 403</div></pre></td></tr></table></figure></p>
-<blockquote>
-<ul>
-<li>原因可能是你有两个github账户， 以前使用一个登陆并管理代码，切换另一个账号管理代码时， 钥匙串存储仍然是第一个用户的密码</li>
-<li>执行<code>git credential-osxkeychain erase</code></li>
-</ul>
-</blockquote>
-<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="https://help.github.com/articles/updating-credentials-from-the-osx-keychain/" target="_blank" rel="external">GitHub Help</a> git</p>
-
-          
+          概述
+代码管理工具从流行的CVS,到SVN，到如今的Git, 尤其是Github的存在，加之git在代码管理的种种优势，git已经被越来越多的程序员喜爱。在日常开发中，我们可能面临着这样的尴尬：公司本身有git服务器，管理自己的代码。爱折腾的程序员，可在各大第三方代码管理平台，github, cod
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/09/13/mac-mulit-git-account-config/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1083,74 +878,32 @@
       
         
           
-            <h2 id="Hexo备忘"><a href="#Hexo备忘" class="headerlink" title="Hexo备忘"></a>Hexo备忘</h2><h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>参数</th>
-<th>说明   </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>hexo init [folder]</td>
-<td>folder: 博客所在文件夹</td>
-<td>初始化博客文件  </td>
-</tr>
-<tr>
-<td>hexo new [layout] <code>&lt;title&gt;</code></td>
-<td>layout: 模板名称 <br> title:文件名称</td>
-<td>在 <code>scaffolds</code> 文件夹内，默认layout为 <code>post</code></td>
-</tr>
-<tr>
-<td>hexo generate [-d] [-w]</td>
-<td>-d: deploy <br> -w:watch</td>
-<td>生成并部署，位置可调换</td>
-</tr>
-<tr>
-<td>hexo publish [layout] <code>&lt;filename&gt;</code></td>
-<td>layout: <br> filename:文件名称</td>
-<td>发布指定草稿里的文件</td>
-</tr>
-<tr>
-<td>hexo server</td>
-<td>-p:指定端口 <br> -s:只启动静态文件 <br> -l:日志</td>
-<td>启动服务<br> 默认地址：<a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a></td>
-</tr>
-<tr>
-<td>hexo deploy</td>
-<td></td>
-<td>部署</td>
-</tr>
-<tr>
-<td>hexo clean</td>
-<td></td>
-<td>有问题，先清理 <br> 生成部署之前，先清理一下，错误莫名消失</td>
-</tr>
-</tbody>
-</table>
-<h3 id="标签表现"><a href="#标签表现" class="headerlink" title="标签表现"></a>标签表现</h3><p>格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;% blockquote [author[, source]] [link] [source_link_title] %&#125;</div><div class="line">  content</div><div class="line">&#123;% endblockquote %&#125;</div></pre></td></tr></table></figure></p>
-<h4 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h4><p><strong><em>简单</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;% blockquote %&#125;</div><div class="line">吾十有五而志于学，三十而立，四十而不惑，五十而知天命，六十而耳顺，七十而从心所欲不逾矩</div><div class="line">&#123;% endblockquote %&#125;</div></pre></td></tr></table></figure></p>
-<blockquote><p>吾十有五而志于学，三十而立，四十而不惑，五十而知天命，六十而耳顺，七十而从心所欲不逾矩</p>
-</blockquote>
-<p><strong><em>来源</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;% blockquote  孔子,论语 %&#125;</div><div class="line">吾十有五而志于学，三十而立，四十而不惑，五十而知天命，六十而耳顺，七十而从心所欲不逾矩</div><div class="line">&#123;% endblockquote %&#125;</div></pre></td></tr></table></figure></p>
-<blockquote><p>吾十有五而志于学，三十而立，四十而不惑，五十而知天命，六十而耳顺，七十而从心所欲不逾矩</p>
-<footer><strong>孔子</strong><cite>论语</cite></footer></blockquote>
-<p><strong><em>链接</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;% blockquote  孔子,论语 http://suqiang.github.io/ %&#125;</div><div class="line">吾十有五而志于学，三十而立，四十而不惑，五十而知天命，六十而耳顺，七十而从心所欲不逾矩</div><div class="line">&#123;% endblockquote %&#125;</div></pre></td></tr></table></figure></p>
-<blockquote><p>吾十有五而志于学，三十而立，四十而不惑，五十而知天命，六十而耳顺，七十而从心所欲不逾矩</p>
-<footer><strong>孔子,论语</strong><cite><a href="http://suqiang.github.io/" target="_blank" rel="external">suqiang.github.io</a></cite></footer></blockquote>
-<p><strong><em>markdown_code</em></strong><br><figure class="highlight"><figcaption><span>数据库数据(json)</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">"data":&#123;</div><div class="line">  "name":"Grimes",</div><div class="line">  "blog":"http://suqiang.github.io/",</div><div class="line">  "age":25</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<figure class="highlight objc"><figcaption><span>初始化方法(objc)</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">instancetype</span>)initWithFrame:(<span class="built_in">CGRect</span>)frame</div><div class="line">&#123;</div><div class="line">  <span class="keyword">self</span> = [<span class="keyword">super</span> initWithFrame:frame];</div><div class="line">  <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</div><div class="line"></div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong><em>其他详细</em></strong><br>链接：<a href="https://hexo.io/docs/tag-plugins.html" target="_blank" rel="external">其他</a></p>
-<h3 id="资源文件"><a href="#资源文件" class="headerlink" title="资源文件"></a>资源文件</h3><ul>
-<li>可以在文件夹<code>source</code>创建自公有的资源文件夹，例如images；</li>
-<li>也可以在配置文件<code>_config.yml</code>里将<code>post_asset_folder</code>打开，设置为true(默认为false)，此时，在新建文章时，会自动生成和文章文件名称一致的文件夹，用来存放文章对应的资源。注意此时不能用markdown语法引用资源，而是用hexo自有的标签</li>
-<li><a href="https://hexo.io/docs/asset-folders.html" target="_blank" rel="external">详情</a></li>
-</ul>
-<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p><a href="https://hexo.io/" target="_blank" rel="external">Hexo官方网站</a><br><a href="http://www.jianshu.com/p/465830080ea9" title="简书:Github+Hexo博客搭建" target="_blank" rel="external">简书*Github+Hexo博客搭建</a><br><a href="http://www.jianshu.com/p/05289a4bc8b2/" title="如何搭建一个独立博客——简明Github Pages与Hexo教程" target="_blank" rel="external">简书*如何搭建一个独立博客——简明Github Pages与Hexo教程</a><br><a href="https://www.zhihu.com/question/24422335" title="有哪些好看的 Hexo 主题" target="_blank" rel="external">知乎*有哪些好看的 Hexo 主题</a><br><a href="https://www.zhihu.com/question/33324071" title="hexo下新建页面下如何放多个文章" target="_blank" rel="external">知乎*hexo下新建页面下如何放多个文章</a><br><a href="https://www.zhihu.com/question/21193762" title="使用hexo，如果换了电脑怎么更新博客？" target="_blank" rel="external">知乎*使用hexo，如果换了电脑怎么更新博客？</a></p>
-<h3 id="题外"><a href="#题外" class="headerlink" title="题外~"></a>题外~</h3><p>2016-06-17 17:19:04 小窝建成了，这个日子值得纪念，以后就在这里混了~</p>
+          Hexo备忘命令
 
-          
+
+命令
+参数
+说明   
+
+
+
+
+hexo init [folder]
+folder: 博客所在文件夹
+初始化博客文件  
+
+
+hexo new [layout] &lt;title&gt;
+layout: 模板名称  title:文件名称
+在 scaffolds 文件夹内，默认
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/06/17/hexo笔记/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1238,10 +991,10 @@
             
             
             <div class="site-state-item site-state-categories">
-              
+              <a href="/categories/index.html">
                 <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
-              
+              </a>
             </div>
           
 
@@ -1268,6 +1021,35 @@
         
 
         <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/suqiang" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/90hotel" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="微信">
+                  
+                    <i class="fa fa-fw fa-weixin"></i>
+                  
+                  微信
+                </a>
+              </span>
+            
           
         </div>
 

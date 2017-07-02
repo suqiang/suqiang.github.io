@@ -92,6 +92,7 @@
     <content type="html"><![CDATA[<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><blockquote>
 <p>最近朋友问了一个微信朋友圈评论列表的实现，加之以前也做过类似的功能，这两天抽时间重新完善和设计了一下，以此文作为总结和大家分享，欢迎大家批评指教<br>源码见文末</p>
 </blockquote>
+<a id="more"></a> 
 <h3 id="截图"><a href="#截图" class="headerlink" title="截图"></a>截图</h3><p><img src="http://o7obltx2h.bkt.clouddn.com/image/blog/weixin_fed.gif" alt="微信Fed"></p>
 <h3 id="需求描述"><a href="#需求描述" class="headerlink" title="需求描述"></a>需求描述</h3><ul>
 <li>列表页展现消息流</li>
@@ -230,7 +231,8 @@
     <summary type="html">
     
       &lt;h3 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;最近朋友问了一个微信朋友圈评论列表的实现，加之以前也做过类似的功能，这两天抽时间重新完善和设计了一下，以此文作为总
+&lt;p&gt;最近朋友问了一个微信朋友圈评论列表的实现，加之以前也做过类似的功能，这两天抽时间重新完善和设计了一下，以此文作为总结和大家分享，欢迎大家批评指教&lt;br&gt;源码见文末&lt;/p&gt;
+&lt;/blockquote&gt;
     
     </summary>
     
