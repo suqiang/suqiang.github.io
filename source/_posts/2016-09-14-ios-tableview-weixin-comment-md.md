@@ -14,6 +14,8 @@ permalink:
 > 最近朋友问了一个微信朋友圈评论列表的实现，加之以前也做过类似的功能，这两天抽时间重新完善和设计了一下，以此文作为总结和大家分享，欢迎大家批评指教  
 > 源码见文末
 
+<!-- more --> 
+
 ### 截图
 ![微信Fed](http://o7obltx2h.bkt.clouddn.com/image/blog/weixin_fed.gif)
 
