@@ -4,9 +4,9 @@
   <subtitle>个人技术成长之路</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://suqianghotel.com/"/>
+  <link href="http://sugercode.com/"/>
   <updated>2016-11-02T06:19:50.000Z</updated>
-  <id>http://suqianghotel.com/</id>
+  <id>http://sugercode.com/</id>
   
   <author>
     <name>阶前梧叶</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>iOS异或(XOR)加密</title>
-    <link href="http://suqianghotel.com/2016/11/02/ios-xor-encrypt/"/>
-    <id>http://suqianghotel.com/2016/11/02/ios-xor-encrypt/</id>
+    <link href="http://sugercode.com/2016/11/02/ios-xor-encrypt/"/>
+    <id>http://sugercode.com/2016/11/02/ios-xor-encrypt/</id>
     <published>2016-11-02T06:19:50.000Z</published>
     <updated>2016-11-02T06:19:50.000Z</updated>
     
@@ -75,17 +75,17 @@
     
     </summary>
     
-      <category term="iOS 加密" scheme="http://suqianghotel.com/categories/iOS-%E5%8A%A0%E5%AF%86/"/>
+      <category term="iOS 加密" scheme="http://sugercode.com/categories/iOS-%E5%8A%A0%E5%AF%86/"/>
     
     
-      <category term="iOS 加密 XOR" scheme="http://suqianghotel.com/tags/iOS-%E5%8A%A0%E5%AF%86-XOR/"/>
+      <category term="iOS 加密 XOR" scheme="http://sugercode.com/tags/iOS-%E5%8A%A0%E5%AF%86-XOR/"/>
     
   </entry>
   
   <entry>
     <title>tableView实现微信朋友圈评论回复功能</title>
-    <link href="http://suqianghotel.com/2016/09/14/ios-tableview-weixin-comment-md/"/>
-    <id>http://suqianghotel.com/2016/09/14/ios-tableview-weixin-comment-md/</id>
+    <link href="http://sugercode.com/2016/09/14/ios-tableview-weixin-comment-md/"/>
+    <id>http://sugercode.com/2016/09/14/ios-tableview-weixin-comment-md/</id>
     <published>2016-09-14T10:43:17.000Z</published>
     <updated>2016-09-14T10:43:17.000Z</updated>
     
@@ -236,17 +236,17 @@
     
     </summary>
     
-      <category term="iOS" scheme="http://suqianghotel.com/categories/iOS/"/>
+      <category term="iOS" scheme="http://sugercode.com/categories/iOS/"/>
     
     
-      <category term="iOS tableView 评论回复" scheme="http://suqianghotel.com/tags/iOS-tableView-%E8%AF%84%E8%AE%BA%E5%9B%9E%E5%A4%8D/"/>
+      <category term="iOS tableView 评论回复" scheme="http://sugercode.com/tags/iOS-tableView-%E8%AF%84%E8%AE%BA%E5%9B%9E%E5%A4%8D/"/>
     
   </entry>
   
   <entry>
     <title>Mac多个Git账户配置</title>
-    <link href="http://suqianghotel.com/2016/09/13/mac-mulit-git-account-config/"/>
-    <id>http://suqianghotel.com/2016/09/13/mac-mulit-git-account-config/</id>
+    <link href="http://sugercode.com/2016/09/13/mac-mulit-git-account-config/"/>
+    <id>http://sugercode.com/2016/09/13/mac-mulit-git-account-config/</id>
     <published>2016-09-13T10:30:48.000Z</published>
     <updated>2016-09-13T10:30:48.000Z</updated>
     
@@ -325,17 +325,17 @@
     
     </summary>
     
-      <category term="技术 Git" scheme="http://suqianghotel.com/categories/%E6%8A%80%E6%9C%AF-Git/"/>
+      <category term="技术 Git" scheme="http://sugercode.com/categories/%E6%8A%80%E6%9C%AF-Git/"/>
     
     
-      <category term="Mac Git SSH" scheme="http://suqianghotel.com/tags/Mac-Git-SSH/"/>
+      <category term="Mac Git SSH" scheme="http://sugercode.com/tags/Mac-Git-SSH/"/>
     
   </entry>
   
   <entry>
     <title>Hexo 简单配置</title>
-    <link href="http://suqianghotel.com/2016/06/17/hexo%E7%AC%94%E8%AE%B0/"/>
-    <id>http://suqianghotel.com/2016/06/17/hexo笔记/</id>
+    <link href="http://sugercode.com/2016/06/17/hexo%E7%AC%94%E8%AE%B0/"/>
+    <id>http://sugercode.com/2016/06/17/hexo笔记/</id>
     <published>2016-06-17T09:19:04.000Z</published>
     <updated>2016-09-14T10:39:46.000Z</updated>
     
@@ -413,10 +413,10 @@
     
     </summary>
     
-      <category term="博客" scheme="http://suqianghotel.com/categories/%E5%8D%9A%E5%AE%A2/"/>
+      <category term="博客" scheme="http://sugercode.com/categories/%E5%8D%9A%E5%AE%A2/"/>
     
     
-      <category term="hexo" scheme="http://suqianghotel.com/tags/hexo/"/>
+      <category term="hexo" scheme="http://sugercode.com/tags/hexo/"/>
     
   </entry>
   
