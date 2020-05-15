@@ -4,17 +4,16 @@
 
 # Site
 title: 阶前梧叶
-subtitle: 个人技术成长之路
+subtitle: 未闻池塘春草色，阶前梧叶已秋声
 description: 记录分享所思、所想、所实现
-author: 阶前梧叶
-language: zh-Hans
+author: 灼海
+language: zh-CN
 timezone:
-
 
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://sugercode.com
+url: http://www.searsear.com
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -75,13 +74,13 @@ baidusitemap:
   path: baidusitemap.xml
 
 
-theme: next
+theme: next-reloaded
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
      type: git
-
-     repo: https://github.com/suqiang/suqiang.github.io.git
+     repo: git@106.14.151.161:/home/git/blog.git   
+     # repo: https://github.com/suqiang/suqiang.github.io.git
 
      branch: master
